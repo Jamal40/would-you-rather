@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+//Components
+import NavBar from "./Components/NavBar/nav-bar";
+import Home from "./Components/Home/home";
+import QuestionAdd from "./Components/QuestionAdd/question-add";
+import Leaderboards from "./Components/Leaderboards/leaderboards";
+import Login from "./Components/Login/login";
+import QuestionDetails from "./Components/QuestionDetails/question-details";
+import QuestionResult from "./Components/QuestionResult/question-result";
+import UserCard from "./Components/UserCard/user-card";
+
+//Router
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+//Redux
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import rootReducer from "./Reducers";
+import { BrowserRouter } from "react-router-dom";
+import thunk from "redux-thunk";
+
+const logger = (store) => (next) => (action) => {
+  console.group(action.type);
+  console.log("Action:", action);
+  const result = next(action);
+  console.log("New State:", store.getState());
+  console.groupEnd();
+  return result;
+};
+
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Provider>
+        <div className="App">
+          <NavBar />
+          <Switch>
+            <Route path="/login" exact component={Login} />
+            <Route path="/questions/add" component={QuestionAdd} />
+            <Route path="/questions/add" component={QuestionAdd} />
+            <Route path="/leaderboards" component={Leaderboards} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </div>
+      </Provider>
+    </Router>
   );
 }
 
