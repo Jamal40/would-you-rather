@@ -1,20 +1,38 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
 import { Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+
 import "./login.css";
-import { getUsers } from "../../assets/api";
+import { getUsers, getUserById } from "../../assets/api";
+//Redux Imports
+import { connect } from "react-redux";
+import { authorizeUser } from "../../Actions/authorizeUser";
+
+// async function getUserById(id) {
+//   let users = await getUsers();
+//   return users[id];
+// }
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state.users = [];
+    this.state.chosenUser = null;
   }
   state = {};
 
-  handleChange(e, y) {
-    console.log(y.value);
-  }
-  handleClick() {}
+  handleChange = async (e, y) => {
+    let chosenUser = await getUserById(y.value);
+
+    this.setState({
+      chosenUser: chosenUser,
+    });
+  };
+  handleClick = () => {
+    this.props.authorizeUser(this.state.chosenUser);
+  };
+
   componentDidMount() {
     getUsers().then((users) => {
       let usersArr = [];
@@ -43,11 +61,17 @@ class Login extends React.Component {
         options={this.state.users}
         onChange={this.handleChange}
       />
-      <Button onClick={this.handleClick} color="green">
+      <Button
+        as={Link}
+        to="/"
+        disabled={!this.state.chosenUser}
+        onClick={this.handleClick}
+        color="green"
+      >
         Sign in
       </Button>
     </div>
   );
 }
 
-export default Login;
+export default connect(null, { authorizeUser })(Login);

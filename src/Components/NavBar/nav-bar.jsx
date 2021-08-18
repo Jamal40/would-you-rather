@@ -3,10 +3,21 @@ import { Menu } from "semantic-ui-react";
 import "./nav-bar.css";
 import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom";
-export default class NavBar extends Component {
-  state = {};
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+//Redux Imports
+import { connect } from "react-redux";
+import { logOut } from "../../Actions/logOut";
 
+class NavBar extends Component {
+  state = {};
+  handleItemClick = (e, { name }) => {
+    if (name == "log-out") {
+      this.props.logOut();
+    }
+    this.setState({ activeItem: name });
+  };
+  componentDidMount() {
+    console.log(localStorage.getItem(this.props.currentUser));
+  }
   render() {
     const { activeItem } = this.state;
     return (
@@ -41,27 +52,40 @@ export default class NavBar extends Component {
           Leaderboard
         </Menu.Item>
 
-        {/* <Menu.Item
-          className="log-item"
-          name="login"
-          active={activeItem === "login"}
-          onClick={this.handleItemClick}
-        >
-          Login
-        </Menu.Item> */}
-
-        <div className="user-container">
-          <p className="welcome-msg">Hello Muhammed</p>
+        {this.props.currentUser !== null ? (
+          <div className="user-container">
+            <p className="welcome-msg">{this.props.currentUser.name}</p>
+            <Menu.Item
+              as={Link}
+              to="/login"
+              className="log-item"
+              name="log-out"
+              active={activeItem === "log-out"}
+              onClick={this.handleItemClick}
+            >
+              Log-out
+            </Menu.Item>
+          </div>
+        ) : (
           <Menu.Item
+            as={Link}
+            to="/login"
             className="log-item"
-            name="log-out"
-            active={activeItem === "log-out"}
+            name="login"
+            active={activeItem === "login"}
             onClick={this.handleItemClick}
           >
-            Log-out
+            Login
           </Menu.Item>
-        </div>
+        )}
       </Menu>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { currentUser: state.userReducer };
+};
+
+export default connect(mapStateToProps, { logOut })(NavBar);

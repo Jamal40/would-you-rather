@@ -15,13 +15,12 @@ let userReducer = (
       return user;
 
     case types.LOG_USER_OUT:
+      console.log("We came here");
       localStorage.removeItem(userStorageKey);
       return null;
-      break;
 
     default:
-      return null;
-      break;
+      return state;
   }
 };
 

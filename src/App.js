@@ -13,7 +13,7 @@ import UserCard from "./Components/UserCard/user-card";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Redux
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./Reducers";
 import { BrowserRouter } from "react-router-dom";
@@ -28,12 +28,16 @@ const logger = (store) => (next) => (action) => {
   return result;
 };
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, logger))
+);
 
 function App() {
   return (
     <Router>
-      <Provider>
+      <Provider store={store}>
         <div className="App">
           <NavBar />
           <Switch>

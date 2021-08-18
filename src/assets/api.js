@@ -3,10 +3,15 @@ import {
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
+  _getUserById,
 } from "./_DATA";
 
 export function getUsers() {
   return _getUsers();
+}
+
+export function getUserById(id) {
+  return _getUserById(id);
 }
 
 export function getQuestions() {
