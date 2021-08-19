@@ -3,4 +3,11 @@
 }
 .home-container {
   padding: 5em;
+  max-width: 900px;
+  margin: auto;
+}
+.home-questions-container {
+  display: grid !important ;
+  grid-template-columns: 1fr 1fr !important;
+  justify-items: center !important;
 }
