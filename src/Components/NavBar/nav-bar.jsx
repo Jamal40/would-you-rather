@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
 import "./nav-bar.css";
 import "semantic-ui-css/semantic.min.css";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
 //Redux Imports
 import { connect } from "react-redux";
 import { logOut } from "../../Actions/logOut";
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {};
   handleItemClick = (e, { name }) => {
     if (name == "log-out") {
@@ -15,11 +20,16 @@ class NavBar extends Component {
     }
     this.setState({ activeItem: name });
   };
-  componentDidMount() {
-    console.log(localStorage.getItem(this.props.currentUser));
-  }
+
   render() {
     const { activeItem } = this.state;
+
+    this.props.history.listen((l, a) => {
+      this.setState({
+        activeItem: l.pathname.includes("login") ? "login" : activeItem,
+      });
+    });
+
     return (
       <Menu className="menu-container">
         <Menu.Item
@@ -88,4 +98,4 @@ const mapStateToProps = (state) => {
   return { currentUser: state.userReducer };
 };
 
-export default connect(mapStateToProps, { logOut })(NavBar);
+export default withRouter(connect(mapStateToProps, { logOut })(NavBar));

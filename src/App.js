@@ -1,3 +1,4 @@
+import React from "react";
 import "./App.css";
 //Components
 import NavBar from "./Components/NavBar/nav-bar";
@@ -5,18 +6,22 @@ import Home from "./Components/Home/home";
 import QuestionAdd from "./Components/QuestionAdd/question-add";
 import Leaderboards from "./Components/Leaderboards/leaderboards";
 import Login from "./Components/Login/login";
-import QuestionDetails from "./Components/QuestionDetails/question-details";
-import QuestionResult from "./Components/QuestionResult/question-result";
-import UserCard from "./Components/UserCard/user-card";
+// import QuestionDetails from "./Components/QuestionDetails/question-details";
+// import QuestionResult from "./Components/QuestionResult/question-result";
+// import UserCard from "./Components/UserCard/user-card";
 
 //Router
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams,
+} from "react-router-dom";
 
 //Redux
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./Reducers";
-import { BrowserRouter } from "react-router-dom";
 import thunk from "redux-thunk";
 
 const logger = (store) => (next) => (action) => {
@@ -34,7 +39,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, logger))
 );
 
-function App() {
+function App(props) {
   return (
     <Router>
       <Provider store={store}>

@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import Question from "../Question/question";
 import QuestionDetails from "../QuestionDetails/question-details";
 import QuestionResult from "../QuestionResult/question-result";
+import { Redirect } from "react-router-dom";
 
-import { Input, Menu, Segment } from "semantic-ui-react";
+import { Menu, Segment } from "semantic-ui-react";
 import "./home.css";
 import "semantic-ui-css/semantic.min.css";
 import { Card } from "semantic-ui-react";
 
-export default class Home extends Component {
+//Redux Imports
+import { connect } from "react-redux";
+
+class Home extends Component {
   state = { activeItem: "home" };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -16,6 +20,9 @@ export default class Home extends Component {
   render() {
     const { activeItem } = this.state;
 
+    if (!this.props.currentUser) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="home-container">
         <Menu pointing>
@@ -52,3 +59,9 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { currentUser: state.userReducer };
+};
+
+export default connect(mapStateToProps)(Home);
