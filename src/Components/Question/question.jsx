@@ -20,6 +20,9 @@ class Question extends Component {
     if (!this.props.currentUser.answers[this.props.questionId]) {
       this.props.history.push(`/questions/answer/${this.props.questionId}`);
     }
+    else {
+      this.props.history.push(`/questions/${this.props.questionId}`)
+    }
   };
   render() {
     return (

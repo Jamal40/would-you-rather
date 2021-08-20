@@ -12,6 +12,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 2em;
+  transform:  scale(0.95);
 }
 .user-card-avatar {
   padding: 1em;

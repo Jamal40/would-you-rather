@@ -3,29 +3,59 @@ import { Button, Card, Image } from "semantic-ui-react";
 import "./question-result.css";
 import "semantic-ui-css/semantic.min.css";
 
-export default class QuestionResult extends Component {
+///react router
+import { withRouter } from "react-router";
+
+//redux
+import { connect } from "react-redux";
+
+ class QuestionResult extends Component {
   render() {
+    const requiredQuestion =
+      this.props.allQuestions[this.props.match.params.id];
+
+      let votes1 = requiredQuestion?.optionOne.votes.length;
+      let votes2 = requiredQuestion?.optionTwo.votes.length;
+      let totalVotes = votes1 + votes2;
+
     return (
-      <Card>
-        <Card.Content>
-          <Image floated="right" size="mini" src="https://picsum.photos/200" />
-          <Card.Header>Steve Sanders</Card.Header>
-          <Card.Meta>Friends of Elliot</Card.Meta>
-          <Card.Description>
-            Steve wants to add you to the group <strong>best friends</strong>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div className="ui two buttons">
-            <Button disabled color="green">
-              your choice
-            </Button>
-            <Button disabled basic color="red">
-              choice 2
-            </Button>
-          </div>
-        </Card.Content>
-      </Card>
+      <div className="question-results-main">
+        <Card className='question-results-card-container'>
+          <Card.Content>
+            <Image floated="right" size="mini" src={this.props.allUsers[requiredQuestion?.author]?.avatarURL} />
+            <Card.Header>{this.props.allUsers[requiredQuestion?.author]?.name} asks</Card.Header>
+            <Card.Description>Would you rather...?</Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <div className="ui two buttons">
+              <Button basic disabled color="green">
+                {requiredQuestion?.optionOne.text} 
+                <br/>
+                <br/>
+                {`${votes1} vote/s => ${(votes1*100/totalVotes).toFixed(0)}%`}
+              </Button>
+              <Button disabled basic color="red">
+                {requiredQuestion?.optionTwo.text}
+                <br/>
+                <br/>
+                {`${votes2} vote/s => ${(votes2*100/totalVotes).toFixed(0)}%`}
+              </Button>
+            </div>
+          </Card.Content>
+        </Card>
+      </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.authUserReducer,
+    allQuestions: state.questionsReducer,
+    allUsers: state.userReducer,
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps)(QuestionResult)
+);

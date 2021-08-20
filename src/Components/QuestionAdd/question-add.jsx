@@ -5,6 +5,7 @@ import "semantic-ui-css/semantic.min.css";
 
 //tasks
 import { AddQuestion } from "../../Tasks/qustionTasks";
+import {GetAllUsers} from '../../Tasks/userTasks'
 
 ///react router
 import { withRouter } from "react-router";
@@ -23,7 +24,7 @@ class QuestionAdd extends Component {
     };
 
     this.props.AddQuestion(newQuestion);
-
+    this.props.GetAllUsers();
     const inputs = document.querySelectorAll(".question-add-container input");
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].value = "";
@@ -75,6 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddQuestion: (data) => dispatch(AddQuestion(data)),
+    GetAllUsers: ()=> dispatch(GetAllUsers())
   };
 };
 

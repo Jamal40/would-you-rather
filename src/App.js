@@ -7,7 +7,7 @@ import QuestionAdd from "./Components/QuestionAdd/question-add";
 import Leaderboards from "./Components/Leaderboards/leaderboards";
 import Login from "./Components/Login/login";
 import QuestionDetails from "./Components/QuestionDetails/question-details";
-// import QuestionResult from "./Components/QuestionResult/question-result";
+import QuestionResult from "./Components/QuestionResult/question-result";
 // import UserCard from "./Components/UserCard/user-card";
 
 //Router
@@ -49,6 +49,7 @@ function App(props) {
             <Route path="/login" exact component={Login} />
             <Route path="/questions/add" component={QuestionAdd} />
             <Route path="/questions/answer/:id" component={QuestionDetails} />
+            <Route path="/questions/:id" component={QuestionResult} />
             <Route path="/leaderboards" component={Leaderboards} />
             <Route exact path="/" component={Home} />
           </Switch>
