@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import "./question-add.css";
 import "semantic-ui-css/semantic.min.css";
-import { saveQuestion } from "../../assets/api";
+
+//tasks
+import { AddQuestion } from "../../Tasks/qustionTasks";
+
 //Redux Imports
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -16,13 +19,14 @@ class QuestionAdd extends Component {
       optionTwoText: this.state.secondOption,
       author: this.props.currentUser.id,
     };
-    saveQuestion(newQuestion).then(() => {
-      const inputs = document.querySelectorAll(".question-add-container input");
-      for (let i = 0; i < inputs.length; i++) {
-        inputs[i].value = "";
-      }
-      this.props.history.push("/");
-    });
+
+    this.props.AddQuestion(newQuestion);
+
+    const inputs = document.querySelectorAll(".question-add-container input");
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = "";
+    }
+    this.props.history.push("/");
   };
 
   firstOptionChanged = (e) => {
@@ -66,4 +70,12 @@ const mapStateToProps = (state) => {
   return { currentUser: state.authUserReducer };
 };
 
-export default withRouter(connect(mapStateToProps)(QuestionAdd));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AddQuestion: (data) => dispatch(AddQuestion(data)),
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(QuestionAdd)
+);
