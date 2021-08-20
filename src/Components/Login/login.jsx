@@ -4,15 +4,9 @@ import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import "./login.css";
-import { getUsers, getUserById } from "../../assets/api";
 //Redux Imports
 import { connect } from "react-redux";
 import { authorizeUser } from "../../Actions/authorizeUserActions";
-
-// async function getUserById(id) {
-//   let users = await getUsers();
-//   return users[id];
-// }
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,7 +17,7 @@ class Login extends React.Component {
   state = {};
 
   handleChange = async (e, y) => {
-    let chosenUser = await getUserById(y.value);
+    let chosenUser = this.props.allUsers[y.value];
 
     this.setState({
       chosenUser: chosenUser,
@@ -33,45 +27,54 @@ class Login extends React.Component {
     this.props.authorizeUser(this.state.chosenUser);
   };
 
-  componentDidMount() {
-    getUsers().then((users) => {
-      let usersArr = [];
-      for (let u in users) {
-        usersArr.push({
-          key: users[u].id,
-          text: users[u].name,
-          value: users[u].id,
-          image: { avatar: true, src: users[u].avatarURL },
-        });
-      }
-      this.setState({
-        users: usersArr,
+  componentDidMount() {}
+
+  updateFromReduxState() {
+    let usersArr = [];
+    for (let u in this.props.allUsers) {
+      usersArr.push({
+        key: this.props.allUsers[u].id,
+        text: this.props.allUsers[u].name,
+        value: this.props.allUsers[u].id,
+        image: { avatar: true, src: this.props.allUsers[u].avatarURL },
       });
-    });
+    }
+
+    this.state.users = usersArr;
   }
 
-  render = () => (
-    <div className="login-container">
-      <h2>Welcome to our website</h2>
-      <Dropdown
-        className="login-drop-down"
-        placeholder="Select Friend"
-        fluid
-        selection
-        options={this.state.users}
-        onChange={this.handleChange}
-      />
-      <Button
-        as={Link}
-        to="/"
-        disabled={!this.state.chosenUser}
-        onClick={this.handleClick}
-        color="green"
-      >
-        Sign in
-      </Button>
-    </div>
-  );
+  render = () => {
+    this.updateFromReduxState();
+    return (
+      <div className="login-container">
+        <h2>Welcome to our website</h2>
+        <Dropdown
+          className="login-drop-down"
+          placeholder="Select Friend"
+          fluid
+          selection
+          options={this.state.users}
+          onChange={this.handleChange}
+        />
+        <Button
+          as={Link}
+          to="/"
+          disabled={!this.state.chosenUser}
+          onClick={this.handleClick}
+          color="green"
+        >
+          Sign in
+        </Button>
+      </div>
+    );
+  };
 }
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.authUserReducer,
+    allQuestions: state.questionsReducer,
+    allUsers: state.userReducer,
+  };
+};
 
-export default connect(null, { authorizeUser })(Login);
+export default connect(mapStateToProps, { authorizeUser })(Login);
