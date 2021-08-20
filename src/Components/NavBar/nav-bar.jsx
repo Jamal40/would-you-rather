@@ -4,6 +4,10 @@ import "./nav-bar.css";
 import "semantic-ui-css/semantic.min.css";
 import { Link, withRouter } from "react-router-dom";
 
+//tasks
+import { GetAllQuestions } from "../../Tasks/qustionTasks";
+import { GetAllUsers } from "../../Tasks/userTasks";
+
 //Redux Imports
 import { connect } from "react-redux";
 import { logOut } from "../../Actions/authorizeUserActions";
@@ -11,6 +15,11 @@ import { logOut } from "../../Actions/authorizeUserActions";
 class NavBar extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.GetAllQuestions();
+    this.props.GetAllUsers();
   }
 
   state = {};
@@ -97,4 +106,12 @@ const mapStateToProps = (state) => {
   return { currentUser: state.authUserReducer };
 };
 
-export default withRouter(connect(mapStateToProps, { logOut })(NavBar));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    GetAllQuestions: () => dispatch(GetAllQuestions()),
+    GetAllUsers: () => dispatch(GetAllUsers()),
+    logOut,
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));

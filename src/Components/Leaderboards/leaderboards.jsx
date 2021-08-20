@@ -2,33 +2,34 @@ import React, { Component } from "react";
 import UserCard from "../UserCard/user-card";
 import "./leaderboards.css";
 import "semantic-ui-css/semantic.min.css";
-import { getUsers } from "../../assets/api";
 
-export default class Leaderboards extends Component {
+//redux
+import { connect } from "react-redux";
+
+class Leaderboards extends Component {
   state = { topUsers: [] };
-  componentDidMount() {
-    getUsers().then((users) => {
-      const allUsers = [];
-      let i = 1;
-      for (let userId in users) {
-        allUsers.push(users[userId]);
-        i++;
-      }
-      allUsers.sort((f, s) => {
-        return (
-          Object.keys(s.answers).length +
-          s.questions.length -
-          (Object.keys(f.answers).length + f.questions.length)
-        );
-      });
+  componentDidMount() {}
 
-      this.setState({
-        topUsers: allUsers.slice(0, 3),
-      });
+  updateFromReduxState() {
+    const allUsers = [];
+    let i = 1;
+    for (let userId in this.props.allUsers) {
+      allUsers.push(this.props.allUsers[userId]);
+      i++;
+    }
+    allUsers.sort((f, s) => {
+      return (
+        Object.keys(s.answers).length +
+        s.questions.length -
+        (Object.keys(f.answers).length + f.questions.length)
+      );
     });
+
+    this.state.topUsers = allUsers.slice(0, 3);
   }
 
   render() {
+    this.updateFromReduxState();
     return (
       <div>
         {this.state.topUsers.map((user, index) => (
@@ -45,3 +46,13 @@ export default class Leaderboards extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.authUserReducer,
+    allQuestions: state.questionsReducer,
+    allUsers: state.userReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Leaderboards);

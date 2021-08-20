@@ -4,10 +4,6 @@ import QuestionDetails from "../QuestionDetails/question-details";
 import QuestionResult from "../QuestionResult/question-result";
 import { Redirect } from "react-router-dom";
 
-//tasks
-import { GetAllQuestions } from "../../Tasks/qustionTasks";
-import { GetAllUsers } from "../../Tasks/userTasks";
-
 import { Menu, Segment } from "semantic-ui-react";
 import "./home.css";
 import "semantic-ui-css/semantic.min.css";
@@ -22,10 +18,6 @@ class Home extends Component {
     answeredQuesstions: [],
     unansweredQuestions: [],
   };
-  componentDidMount() {
-    this.props.GetAllQuestions();
-    this.props.GetAllUsers();
-  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -112,11 +104,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    GetAllQuestions: () => dispatch(GetAllQuestions()),
-    GetAllUsers: () => dispatch(GetAllUsers()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
