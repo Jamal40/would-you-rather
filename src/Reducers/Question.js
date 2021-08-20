@@ -10,6 +10,10 @@ const questionsReducer = (state = {}, action) => {
       state = action.payload;
       return state;
 
+    case types.ADD_QUESTION_ANSWER:
+      state = action.payload;
+      return state;
+
     default:
       return state;
   }

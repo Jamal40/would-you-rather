@@ -3,6 +3,9 @@ import { Button, Card, Image } from "semantic-ui-react";
 import "./question-details.css";
 import "semantic-ui-css/semantic.min.css";
 
+//tasks
+import { AddAnswer } from "../../Tasks/qustionTasks";
+
 ///react router
 import { withRouter } from "react-router";
 
@@ -31,7 +34,17 @@ class QuestionDetails extends Component {
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
-              <Button basic color="olive">
+              <Button
+                onClick={() => {
+                  this.props.AddAnswer({
+                    authedUser: this.props.currentUser.id,
+                    qid: requiredQuestion.id,
+                    answer: "optionOne",
+                  });
+                }}
+                basic
+                color="olive"
+              >
                 {requiredQuestion?.optionOne.text}
               </Button>
               <Button basic color="teal">
@@ -52,4 +65,13 @@ const mapStateToProps = (state) => {
     allUsers: state.userReducer,
   };
 };
-export default withRouter(connect(mapStateToProps)(QuestionDetails));
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AddAnswer: (data) => dispatch(AddAnswer(data)),
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(QuestionDetails)
+);
