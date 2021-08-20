@@ -6,7 +6,7 @@ import Home from "./Components/Home/home";
 import QuestionAdd from "./Components/QuestionAdd/question-add";
 import Leaderboards from "./Components/Leaderboards/leaderboards";
 import Login from "./Components/Login/login";
-// import QuestionDetails from "./Components/QuestionDetails/question-details";
+import QuestionDetails from "./Components/QuestionDetails/question-details";
 // import QuestionResult from "./Components/QuestionResult/question-result";
 // import UserCard from "./Components/UserCard/user-card";
 
@@ -48,9 +48,9 @@ function App(props) {
           <Switch>
             <Route path="/login" exact component={Login} />
             <Route path="/questions/add" component={QuestionAdd} />
-            <Route path="/questions/add" component={QuestionAdd} />
+            <Route path="/questions/answer/:id" component={QuestionDetails} />
             <Route path="/leaderboards" component={Leaderboards} />
-            <Route path="/" component={Home} />
+            <Route exact path="/" component={Home} />
           </Switch>
         </div>
       </Provider>

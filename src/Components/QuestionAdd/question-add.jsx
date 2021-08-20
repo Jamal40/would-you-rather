@@ -6,9 +6,11 @@ import "semantic-ui-css/semantic.min.css";
 //tasks
 import { AddQuestion } from "../../Tasks/qustionTasks";
 
+///react router
+import { withRouter } from "react-router";
+
 //Redux Imports
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 
 class QuestionAdd extends Component {
   state = { firstOption: "", secondOption: "" };

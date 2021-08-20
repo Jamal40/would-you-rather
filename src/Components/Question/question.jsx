@@ -3,6 +3,9 @@ import { Button, Card, Image } from "semantic-ui-react";
 import "./question.css";
 import "semantic-ui-css/semantic.min.css";
 
+///react router
+import { withRouter } from "react-router-dom";
+
 //Redux Imports
 import { connect } from "react-redux";
 
@@ -12,6 +15,12 @@ class Question extends Component {
   }
   state = {};
   componentDidMount() {}
+
+  handleClick = (e) => {
+    if (!this.props.currentUser.answers[this.props.questionId]) {
+      this.props.history.push(`/questions/answer/${this.props.questionId}`);
+    }
+  };
   render() {
     return (
       <Card>
@@ -34,7 +43,7 @@ class Question extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui two buttons">
-            <Button basic color="orange">
+            <Button onClick={this.handleClick} basic color="orange">
               View Poll
             </Button>
           </div>
@@ -52,4 +61,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question));

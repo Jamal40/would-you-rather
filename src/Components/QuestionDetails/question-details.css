@@ -1,0 +1,9 @@
+.question-details-main {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  margin-top: -9em;
+}
+.question-details-card-container {
+  width: 400px !important;
+}

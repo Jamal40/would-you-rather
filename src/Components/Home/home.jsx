@@ -34,8 +34,6 @@ class Home extends Component {
       }
     }
 
-    console.log(this.props.allQuestions);
-
     this.state = { ...this.state, answeredQuestions, unansweredQuestions };
   };
 
@@ -68,6 +66,7 @@ class Home extends Component {
               <Card.Group className="home-questions-container">
                 {this.state.unansweredQuestions.map((q) => (
                   <Question
+                    questionId={q.id}
                     firstOtion={q.optionOne.text}
                     secondOption={q.optionTwo.text}
                     questionAuthor={q.author}
@@ -81,6 +80,7 @@ class Home extends Component {
               <Card.Group className="home-questions-container">
                 {this.state.answeredQuestions.map((q) => (
                   <Question
+                    questionId={q.id}
                     firstOtion={q.optionOne.text}
                     secondOption={q.optionTwo.text}
                     questionAuthor={q.author}
