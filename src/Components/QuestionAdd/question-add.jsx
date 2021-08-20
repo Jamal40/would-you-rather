@@ -63,7 +63,7 @@ class QuestionAdd extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { currentUser: state.userReducer };
+  return { currentUser: state.authUserReducer };
 };
 
 export default withRouter(connect(mapStateToProps)(QuestionAdd));

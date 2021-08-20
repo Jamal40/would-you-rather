@@ -2,19 +2,16 @@ import React, { Component } from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import "./question.css";
 import "semantic-ui-css/semantic.min.css";
-import { getUsers } from "../../assets/api";
-export default class Question extends Component {
+
+//Redux Imports
+import { connect } from "react-redux";
+
+class Question extends Component {
   constructor(props) {
     super(props);
-    this.state.users = {};
   }
   state = {};
-  componentDidMount() {
-    getUsers().then((users) => {
-      this.setState({ users });
-      console.log(users);
-    });
-  }
+  componentDidMount() {}
   render() {
     return (
       <Card>
@@ -22,10 +19,10 @@ export default class Question extends Component {
           <Image
             floated="right"
             size="mini"
-            src={this.state.users[this.props.questionAuthor]?.avatarURL}
+            src={this.props.allUsers[this.props.questionAuthor]?.avatarURL}
           />
           <Card.Header>
-            {this.state.users[this.props.questionAuthor]?.name} asks
+            {this.props.allUsers[this.props.questionAuthor]?.name} asks
           </Card.Header>
           <Card.Meta>Would you rather...</Card.Meta>
           <Card.Description>
@@ -46,3 +43,13 @@ export default class Question extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.authUserReducer,
+    allQuestions: state.questionsReducer,
+    allUsers: state.userReducer,
+  };
+};
+
+export default connect(mapStateToProps)(Question);

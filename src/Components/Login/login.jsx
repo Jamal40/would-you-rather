@@ -7,7 +7,7 @@ import "./login.css";
 import { getUsers, getUserById } from "../../assets/api";
 //Redux Imports
 import { connect } from "react-redux";
-import { authorizeUser } from "../../Actions/authorizeUser";
+import { authorizeUser } from "../../Actions/authorizeUserActions";
 
 // async function getUserById(id) {
 //   let users = await getUsers();

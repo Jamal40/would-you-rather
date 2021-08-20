@@ -3,7 +3,10 @@ import Question from "../Question/question";
 import QuestionDetails from "../QuestionDetails/question-details";
 import QuestionResult from "../QuestionResult/question-result";
 import { Redirect } from "react-router-dom";
-import { getQuestions } from "../../assets/api";
+
+//tasks
+import { GetAllQuestions } from "../../Tasks/qustionTasks";
+import { GetAllUsers } from "../../Tasks/userTasks";
 
 import { Menu, Segment } from "semantic-ui-react";
 import "./home.css";
@@ -20,27 +23,29 @@ class Home extends Component {
     unansweredQuestions: [],
   };
   componentDidMount() {
-    getQuestions().then((values) => {
-      let answeredQuestions = [];
-      for (let questionId in this.props.currentUser.answers) {
-        answeredQuestions.push(values[questionId]);
-      }
-
-      let unansweredQuestions = [];
-      for (let questioonId in values) {
-        if (!answeredQuestions.map((q) => q.id).includes(questioonId)) {
-          unansweredQuestions.push(values[questioonId]);
-        }
-      }
-
-      this.setState({
-        answeredQuestions,
-        unansweredQuestions,
-      });
-    });
+    this.props.GetAllQuestions();
+    this.props.GetAllUsers();
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  updateFromReduxState = () => {
+    let answeredQuestions = [];
+    for (let questionId in this.props.currentUser.answers) {
+      answeredQuestions.push(this.props.allQuestions[questionId]);
+    }
+
+    let unansweredQuestions = [];
+    for (let questioonId in this.props.allQuestions) {
+      if (!answeredQuestions.map((q) => q.id).includes(questioonId)) {
+        unansweredQuestions.push(this.props.allQuestions[questioonId]);
+      }
+    }
+
+    console.log(this.props.allQuestions);
+
+    this.state = { ...this.state, answeredQuestions, unansweredQuestions };
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -48,6 +53,7 @@ class Home extends Component {
     if (!this.props.currentUser) {
       return <Redirect to="/login" />;
     }
+    this.updateFromReduxState();
     return (
       <div className="home-container">
         <Menu pointing>
@@ -99,7 +105,18 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { currentUser: state.userReducer };
+  return {
+    currentUser: state.authUserReducer,
+    allQuestions: state.questionsReducer,
+    allUsers: state.userReducer,
+  };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    GetAllQuestions: () => dispatch(GetAllQuestions()),
+    GetAllUsers: () => dispatch(GetAllUsers()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

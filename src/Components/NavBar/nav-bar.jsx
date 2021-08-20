@@ -6,7 +6,7 @@ import { Link, withRouter } from "react-router-dom";
 
 //Redux Imports
 import { connect } from "react-redux";
-import { logOut } from "../../Actions/logOut";
+import { logOut } from "../../Actions/authorizeUserActions";
 
 class NavBar extends Component {
   constructor(props) {
@@ -94,8 +94,7 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  return { currentUser: state.userReducer };
+  return { currentUser: state.authUserReducer };
 };
 
 export default withRouter(connect(mapStateToProps, { logOut })(NavBar));

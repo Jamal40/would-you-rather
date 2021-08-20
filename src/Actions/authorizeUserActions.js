@@ -6,3 +6,9 @@ export function authorizeUser(user) {
     payload: user,
   };
 }
+
+export function logOut() {
+  return {
+    type: types.LOG_USER_OUT,
+  };
+}
