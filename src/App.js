@@ -11,12 +11,7 @@ import QuestionResult from "./Components/QuestionResult/question-result";
 // import UserCard from "./Components/UserCard/user-card";
 
 //Router
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Redux
 import { createStore, applyMiddleware, compose } from "redux";

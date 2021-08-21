@@ -3,6 +3,9 @@ import UserCard from "../UserCard/user-card";
 import "./leaderboards.css";
 import "semantic-ui-css/semantic.min.css";
 
+//router
+import { Redirect } from "react-router-dom";
+
 //redux
 import { connect } from "react-redux";
 
@@ -29,6 +32,10 @@ class Leaderboards extends Component {
   }
 
   render() {
+    if (!this.props.currentUser) {
+      return <Redirect to="/login" />;
+    }
+
     this.updateFromReduxState();
     return (
       <div>

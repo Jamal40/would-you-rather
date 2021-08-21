@@ -10,13 +10,8 @@ import { GetAllUsers } from "../../Tasks/userTasks";
 
 //Redux Imports
 import { connect } from "react-redux";
-import { logOut } from "../../Actions/authorizeUserActions";
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.GetAllQuestions();
     this.props.GetAllUsers();
@@ -24,7 +19,7 @@ class NavBar extends Component {
 
   state = {};
   handleItemClick = (e, { name }) => {
-    if (name == "log-out") {
+    if (name === "log-out") {
       this.props.logOut();
     }
     this.setState({ activeItem: name });
@@ -110,7 +105,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetAllQuestions: () => dispatch(GetAllQuestions()),
     GetAllUsers: () => dispatch(GetAllUsers()),
-    logOut,
+    logOut: () =>
+      dispatch({
+        type: "LOG_USER_OUT",
+      }),
   };
 };
 

@@ -5,10 +5,10 @@ import "semantic-ui-css/semantic.min.css";
 
 //tasks
 import { AddQuestion } from "../../Tasks/qustionTasks";
-import {GetAllUsers} from '../../Tasks/userTasks'
+import { GetAllUsers } from "../../Tasks/userTasks";
 
 ///react router
-import { withRouter } from "react-router";
+import { withRouter, Redirect } from "react-router";
 
 //Redux Imports
 import { connect } from "react-redux";
@@ -44,6 +44,9 @@ class QuestionAdd extends Component {
   };
 
   render() {
+    if (!this.props.currentUser) {
+      return <Redirect to="/login" />;
+    }
     return (
       <Form className="question-add-container">
         <h2>Would you rather...?</h2>
@@ -76,7 +79,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddQuestion: (data) => dispatch(AddQuestion(data)),
-    GetAllUsers: ()=> dispatch(GetAllUsers())
+    GetAllUsers: () => dispatch(GetAllUsers()),
   };
 };
 

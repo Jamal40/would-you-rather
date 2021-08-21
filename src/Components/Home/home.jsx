@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Question from "../Question/question";
-import QuestionDetails from "../QuestionDetails/question-details";
-import QuestionResult from "../QuestionResult/question-result";
 import { Redirect } from "react-router-dom";
 
 import { Menu, Segment } from "semantic-ui-react";
