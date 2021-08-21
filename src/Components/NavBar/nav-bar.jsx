@@ -17,7 +17,7 @@ class NavBar extends Component {
     this.props.GetAllUsers();
   }
 
-  state = {};
+  state = { activeItem: "" };
   handleItemClick = (e, { name }) => {
     if (name === "log-out") {
       this.props.logOut();
@@ -30,7 +30,7 @@ class NavBar extends Component {
 
     this.props.history.listen((l, a) => {
       this.setState({
-        activeItem: l.pathname.includes("login") ? "login" : activeItem,
+        activeItem: l.pathname,
       });
     });
 
@@ -39,8 +39,8 @@ class NavBar extends Component {
         <Menu.Item
           as={Link}
           to="/"
-          name="home"
-          active={activeItem === "home"}
+          name="/"
+          active={activeItem === "/"}
           onClick={this.handleItemClick}
         >
           Home
@@ -49,8 +49,8 @@ class NavBar extends Component {
         <Menu.Item
           as={Link}
           to="/questions/add"
-          name="new-question"
-          active={activeItem === "new-question"}
+          name="/questions/add"
+          active={activeItem === "/questions/add"}
           onClick={this.handleItemClick}
         >
           New Question
@@ -59,8 +59,8 @@ class NavBar extends Component {
         <Menu.Item
           as={Link}
           to="/leaderboards"
-          name="leaderboard"
-          active={activeItem === "leaderboard"}
+          name="/leaderboards"
+          active={activeItem === "/leaderboards"}
           onClick={this.handleItemClick}
         >
           Leaderboard
@@ -74,7 +74,7 @@ class NavBar extends Component {
               to="/login"
               className="log-item"
               name="log-out"
-              active={activeItem === "log-out"}
+              active={activeItem === "/login"}
               onClick={this.handleItemClick}
             >
               Log-out
@@ -85,8 +85,8 @@ class NavBar extends Component {
             as={Link}
             to="/login"
             className="log-item"
-            name="login"
-            active={activeItem === "login"}
+            name="/login"
+            active={activeItem === "/login"}
             onClick={this.handleItemClick}
           >
             Login
