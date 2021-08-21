@@ -59,7 +59,7 @@ class Login extends React.Component {
         />
         <Button
           as={Link}
-          to="/"
+          to={this.props.currentUser?.link || "/"}
           disabled={!this.state.chosenUser}
           onClick={this.handleClick}
           color="green"

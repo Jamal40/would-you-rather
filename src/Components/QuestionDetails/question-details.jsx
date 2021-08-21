@@ -3,18 +3,26 @@ import { Button, Card, Image } from "semantic-ui-react";
 import "./question-details.css";
 import "semantic-ui-css/semantic.min.css";
 
+//Actions
+import { assignCameFromLink } from "../../Actions/authorizeUserActions";
+
 //tasks
 import { AddAnswer } from "../../Tasks/qustionTasks";
 import { GetAllUsers } from "../../Tasks/userTasks";
 
 ///react router
-import { withRouter } from "react-router";
+import { withRouter, Redirect } from "react-router";
 
 //redux
 import { connect } from "react-redux";
 
 class QuestionDetails extends Component {
   render() {
+    if (!this.props.currentUser.id) {
+      this.props.AssignCameFromLink("/" /*this.props.location.pathname*/);
+      return <Redirect to="/login" />;
+    }
+
     const requiredQuestion =
       this.props.allQuestions[this.props.match.params.id];
 
@@ -87,6 +95,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     AddAnswer: (data) => dispatch(AddAnswer(data)),
     GetAllUsers: () => dispatch(GetAllUsers()),
+    AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
   };
 };
 

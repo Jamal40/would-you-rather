@@ -7,6 +7,9 @@ import "./home.css";
 import "semantic-ui-css/semantic.min.css";
 import { Card } from "semantic-ui-react";
 
+//Actions
+import { assignCameFromLink } from "../../Actions/authorizeUserActions";
+
 //Redux Imports
 import { connect } from "react-redux";
 
@@ -41,9 +44,13 @@ class Home extends Component {
   render() {
     const { activeItem } = this.state;
 
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser.id) {
+      this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
+
+    console.log("unreachable");
+
     this.updateFromReduxState();
     return (
       <div className="home-container">
@@ -105,4 +112,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -2,7 +2,7 @@ import { types } from "../assets/types";
 const userStorageKey = "userKey";
 
 let authUserReducer = (
-  state = {} /*  JSON.parse(localStorage.getItem(userStorageKey)),*/,
+  state = { link: "/" } /*  JSON.parse(localStorage.getItem(userStorageKey)),*/,
   action
 ) => {
   switch (action.type) {
@@ -13,9 +13,14 @@ let authUserReducer = (
       }
       return user;
 
+    case types.ASSIGN_CAME_FROM_LINK:
+      const link = action.payload;
+
+      return { ...state, link };
+
     case types.LOG_USER_OUT:
       //localStorage.removeItem(userStorageKey);
-      return null;
+      return { link: "/" };
 
     default:
       return state;

@@ -3,6 +3,9 @@ import { Button, Form } from "semantic-ui-react";
 import "./question-add.css";
 import "semantic-ui-css/semantic.min.css";
 
+//Actions
+import { assignCameFromLink } from "../../Actions/authorizeUserActions";
+
 //tasks
 import { AddQuestion } from "../../Tasks/qustionTasks";
 import { GetAllUsers } from "../../Tasks/userTasks";
@@ -44,7 +47,8 @@ class QuestionAdd extends Component {
   };
 
   render() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser.id) {
+      this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
     return (
@@ -80,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     AddQuestion: (data) => dispatch(AddQuestion(data)),
     GetAllUsers: () => dispatch(GetAllUsers()),
+    AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
   };
 };
 

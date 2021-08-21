@@ -7,6 +7,13 @@ export function authorizeUser(user) {
   };
 }
 
+export function assignCameFromLink(link) {
+  return {
+    type: types.ASSIGN_CAME_FROM_LINK,
+    payload: link,
+  };
+}
+
 export function logOut() {
   return {
     type: types.LOG_USER_OUT,

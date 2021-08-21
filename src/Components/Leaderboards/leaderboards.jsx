@@ -3,6 +3,9 @@ import UserCard from "../UserCard/user-card";
 import "./leaderboards.css";
 import "semantic-ui-css/semantic.min.css";
 
+//Actions
+import { assignCameFromLink } from "../../Actions/authorizeUserActions";
+
 //router
 import { Redirect } from "react-router-dom";
 
@@ -32,7 +35,8 @@ class Leaderboards extends Component {
   }
 
   render() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser.id) {
+      this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
 
@@ -62,4 +66,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Leaderboards);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Leaderboards);
