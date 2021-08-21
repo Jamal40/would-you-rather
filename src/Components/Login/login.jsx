@@ -15,6 +15,7 @@ class Login extends React.Component {
     this.state.chosenUser = null;
   }
   state = {};
+  users = {};
 
   handleChange = async (e, y) => {
     let chosenUser = this.props.allUsers[y.value];
@@ -40,7 +41,7 @@ class Login extends React.Component {
       });
     }
 
-    this.state.users = usersArr;
+    this.users = usersArr;
   }
 
   render = () => {
@@ -53,7 +54,7 @@ class Login extends React.Component {
           placeholder="Select Friend"
           fluid
           selection
-          options={this.state.users}
+          options={this.users}
           onChange={this.handleChange}
         />
         <Button

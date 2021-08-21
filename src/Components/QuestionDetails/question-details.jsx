@@ -5,7 +5,7 @@ import "semantic-ui-css/semantic.min.css";
 
 //tasks
 import { AddAnswer } from "../../Tasks/qustionTasks";
-import {GetAllUsers} from '../../Tasks/userTasks'
+import { GetAllUsers } from "../../Tasks/userTasks";
 
 ///react router
 import { withRouter } from "react-router";
@@ -44,14 +44,15 @@ class QuestionDetails extends Component {
                   });
                   this.props.GetAllUsers();
 
-                  this.props.history.push(`/questions/${requiredQuestion.id}`)
+                  this.props.history.push(`/questions/${requiredQuestion.id}`);
                 }}
                 basic
                 color="olive"
               >
                 {requiredQuestion?.optionOne.text}
               </Button>
-              <Button     onClick={() => {
+              <Button
+                onClick={() => {
                   this.props.AddAnswer({
                     authedUser: this.props.currentUser.id,
                     qid: requiredQuestion.id,
@@ -59,11 +60,11 @@ class QuestionDetails extends Component {
                   });
                   this.props.GetAllUsers();
 
-                  this.props.history.push(`/questions/${requiredQuestion.id}`)
+                  this.props.history.push(`/questions/${requiredQuestion.id}`);
                 }}
                 basic
-                color="olive"
-                basic color="teal">
+                color="teal"
+              >
                 {requiredQuestion?.optionTwo.text}
               </Button>
             </div>
@@ -85,7 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddAnswer: (data) => dispatch(AddAnswer(data)),
-    GetAllUsers : ()=> dispatch(GetAllUsers())
+    GetAllUsers: () => dispatch(GetAllUsers()),
   };
 };
 

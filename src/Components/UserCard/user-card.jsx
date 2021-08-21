@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Button, Card, Image } from "semantic-ui-react";
 import "./user-card.css";
 import "semantic-ui-css/semantic.min.css";
 

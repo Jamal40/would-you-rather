@@ -10,15 +10,15 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Leaderboards extends Component {
-  state = { topUsers: [] };
+  state = {};
+  topUsers = [];
   componentDidMount() {}
 
   updateFromReduxState() {
     const allUsers = [];
-    let i = 1;
+
     for (let userId in this.props.allUsers) {
       allUsers.push(this.props.allUsers[userId]);
-      i++;
     }
     allUsers.sort((f, s) => {
       return (
@@ -28,7 +28,7 @@ class Leaderboards extends Component {
       );
     });
 
-    this.state.topUsers = allUsers.slice(0, 3);
+    this.topUsers = allUsers.slice(0, 3);
   }
 
   render() {
@@ -39,7 +39,7 @@ class Leaderboards extends Component {
     this.updateFromReduxState();
     return (
       <div>
-        {this.state.topUsers.map((user, index) => (
+        {this.topUsers.map((user, index) => (
           <UserCard
             key={user.id}
             rank={index + 1}

@@ -16,7 +16,7 @@ class Home extends Component {
     answeredQuesstions: [],
     unansweredQuestions: [],
   };
-
+  usedQuestions = {};
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   updateFromReduxState = () => {
@@ -32,7 +32,10 @@ class Home extends Component {
       }
     }
 
-    this.state = { ...this.state, answeredQuestions, unansweredQuestions };
+    this.usedQuestions = {
+      answeredQuestions,
+      unansweredQuestions,
+    };
   };
 
   render() {
@@ -62,7 +65,7 @@ class Home extends Component {
           {activeItem === "unanswered" ? (
             <div>
               <Card.Group className="home-questions-container">
-                {this.state.unansweredQuestions.map((q) => (
+                {this.usedQuestions.unansweredQuestions.map((q) => (
                   <Question
                     questionId={q.id}
                     firstOtion={q.optionOne.text}
@@ -76,7 +79,7 @@ class Home extends Component {
           ) : (
             <div>
               <Card.Group className="home-questions-container">
-                {this.state.answeredQuestions.map((q) => (
+                {this.usedQuestions.answeredQuestions.map((q) => (
                   <Question
                     questionId={q.id}
                     firstOtion={q.optionOne.text}

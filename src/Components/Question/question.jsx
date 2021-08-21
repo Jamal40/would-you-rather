@@ -10,18 +10,14 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Question extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {};
   componentDidMount() {}
 
   handleClick = (e) => {
     if (!this.props.currentUser.answers[this.props.questionId]) {
       this.props.history.push(`/questions/answer/${this.props.questionId}`);
-    }
-    else {
-      this.props.history.push(`/questions/${this.props.questionId}`)
+    } else {
+      this.props.history.push(`/questions/${this.props.questionId}`);
     }
   };
   render() {
