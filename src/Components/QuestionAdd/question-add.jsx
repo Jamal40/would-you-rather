@@ -62,7 +62,7 @@ class QuestionAdd extends Component {
           />
         </Form.Field>
         <Button onClick={this.addQuestion} color="blue">
-          Blue
+          Add
         </Button>
       </Form>
     );
