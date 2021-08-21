@@ -9,8 +9,10 @@ There's is database, data are static. All data will be reset on refresh.
 
 ## How to start it
 
-The website hasn't een deployed yet, so you need to run it locally.
-You can download the zipped file, then unzip it.
+You can test in through this link:
+  https://would-you-rather-ruddy.vercel.app/login
+   
+Or you can download the zipped file, then unzip it.
 Go to the directory that contains the project file. 
 Run=> npm i 
   then run=> npm start
