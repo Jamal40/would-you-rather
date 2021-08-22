@@ -20,8 +20,18 @@ import { connect } from "react-redux";
 class QuestionDetails extends Component {
   render() {
     if (!this.props.currentUser.id) {
-      this.props.AssignCameFromLink("/" /*this.props.location.pathname*/);
+      this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
+    }
+
+    let cu = this.props.allUsers[this.props.currentUser.id];
+
+    if (cu.answers[this.props.match.params.id]) {
+      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    }
+
+    if (!this.props.allQuestions[this.props.match.params.id]) {
+      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
     }
 
     const requiredQuestion =
