@@ -9,6 +9,7 @@ import { assignCameFromLink } from "../../Actions/authorizeUserActions";
 //tasks
 import { AddAnswer } from "../../Tasks/qustionTasks";
 import { GetAllUsers } from "../../Tasks/userTasks";
+import { GetAllQuestions } from "../../Tasks/qustionTasks";
 
 ///react router
 import { withRouter, Redirect } from "react-router";
@@ -51,7 +52,7 @@ class QuestionDetails extends Component {
                     answer: "optionOne",
                   });
                   this.props.GetAllUsers();
-
+                  this.props.GetAllQuestions();
                   this.props.history.push(`/questions/${requiredQuestion.id}`);
                 }}
                 basic
@@ -67,7 +68,7 @@ class QuestionDetails extends Component {
                     answer: "optionTwo",
                   });
                   this.props.GetAllUsers();
-
+                  this.props.GetAllQuestions();
                   this.props.history.push(`/questions/${requiredQuestion.id}`);
                 }}
                 basic
@@ -95,6 +96,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     AddAnswer: (data) => dispatch(AddAnswer(data)),
     GetAllUsers: () => dispatch(GetAllUsers()),
+    GetAllQuestions: () => dispatch(GetAllQuestions()),
     AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
   };
 };

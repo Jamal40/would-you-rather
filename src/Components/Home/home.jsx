@@ -23,8 +23,9 @@ class Home extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   updateFromReduxState = () => {
+    const cu = this.props.allUsers[this.props.currentUser.id];
     let answeredQuestions = [];
-    for (let questionId in this.props.currentUser.answers) {
+    for (let questionId in cu.answers) {
       answeredQuestions.push(this.props.allQuestions[questionId]);
     }
 
@@ -35,9 +36,15 @@ class Home extends Component {
       }
     }
 
+    console.log(answeredQuestions);
+
     this.usedQuestions = {
-      answeredQuestions,
-      unansweredQuestions,
+      answeredQuestions: answeredQuestions.sort((f, s) => {
+        return s.timestamp - f.timestamp;
+      }),
+      unansweredQuestions: unansweredQuestions.sort((f, s) => {
+        return s.timestamp - f.timestamp;
+      }),
     };
   };
 
@@ -48,8 +55,6 @@ class Home extends Component {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
-
-    console.log("unreachable");
 
     this.updateFromReduxState();
     return (
