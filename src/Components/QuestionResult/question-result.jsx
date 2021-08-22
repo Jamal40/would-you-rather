@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Card, Image } from "semantic-ui-react";
+import NotFound from "../NotFound/not-found";
 import "./question-result.css";
 import "semantic-ui-css/semantic.min.css";
 
@@ -15,12 +16,16 @@ import { connect } from "react-redux";
 class QuestionResult extends Component {
   render() {
     if (!this.props.currentUser.id) {
-      this.props.AssignCameFromLink("/" /*this.props.location.pathname*/);
+      this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
 
     const requiredQuestion =
       this.props.allQuestions[this.props.match.params.id];
+
+    if (!requiredQuestion) {
+      return <NotFound />;
+    }
 
     let votes1 = requiredQuestion?.optionOne.votes.length;
     let votes2 = requiredQuestion?.optionTwo.votes.length;
