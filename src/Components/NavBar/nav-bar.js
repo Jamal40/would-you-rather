@@ -37,6 +37,7 @@ class NavBar extends Component {
     return (
       <Menu className="menu-container">
         <Menu.Item
+          className="nav-bar-item"
           disabled={!this.props.currentUser.id}
           as={Link}
           to={this.props.currentUser.id ? "/" : "/login"}
@@ -48,6 +49,7 @@ class NavBar extends Component {
         </Menu.Item>
 
         <Menu.Item
+          className="nav-bar-item"
           disabled={!this.props.currentUser.id}
           as={Link}
           to={this.props.currentUser.id ? "/questions/add" : "/login"}
@@ -59,6 +61,7 @@ class NavBar extends Component {
         </Menu.Item>
 
         <Menu.Item
+          className="nav-bar-item"
           disabled={!this.props.currentUser.id}
           as={Link}
           to={this.props.currentUser.id ? "/leaderboards" : "/login"}
@@ -71,8 +74,9 @@ class NavBar extends Component {
 
         {this.props.currentUser.id ? (
           <div className="user-container">
-            <p className="welcome-msg">{this.props.currentUser.name}</p>
+            <p className="welcome-msg">Hi {this.props.currentUser.name}</p>
             <Menu.Item
+              className="nav-bar-item"
               as={Link}
               to="/login"
               className="log-item"
@@ -85,6 +89,7 @@ class NavBar extends Component {
           </div>
         ) : (
           <Menu.Item
+            className="nav-bar-item"
             as={Link}
             to="/login"
             className="log-item"

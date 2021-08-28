@@ -11,3 +11,12 @@
   display: flex;
   margin-left: auto;
 }
+.nav-bar-item {
+  padding-inline: 0.75em !important;
+}
+
+@media (max-width: 450px) {
+  .welcome-msg {
+    display: none;
+  }
+}

@@ -11,3 +11,12 @@
   grid-template-columns: 1fr 1fr !important;
   justify-items: center !important;
 }
+
+@media (max-width: 800px) {
+  .home-questions-container {
+    grid-template-columns: 1fr !important;
+  }
+  .home-container {
+    padding: 1em;
+  }
+}
