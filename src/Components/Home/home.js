@@ -23,7 +23,9 @@ class Home extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   updateFromReduxState = () => {
-    const cu = this.props.allUsers[this.props.currentUser.id];
+    const cu = this.props.allUsers.filter(
+      (_user) => _user._id === this.props.currentUser._id
+    );
     let answeredQuestions = [];
     for (let questionId in cu.answers) {
       answeredQuestions.push(this.props.allQuestions[questionId]);
@@ -35,8 +37,6 @@ class Home extends Component {
         unansweredQuestions.push(this.props.allQuestions[questioonId]);
       }
     }
-
-    console.log(answeredQuestions);
 
     this.usedQuestions = {
       answeredQuestions: answeredQuestions.sort((f, s) => {
@@ -51,7 +51,7 @@ class Home extends Component {
   render() {
     const { activeItem } = this.state;
 
-    if (!this.props.currentUser.id) {
+    if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
