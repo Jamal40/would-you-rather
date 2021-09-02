@@ -10,6 +10,10 @@ export function getUsers() {
   return _getUsers();
 }
 
+export function getUsers_V2() {
+  return fetch("http://localhost:1001/api/users");
+}
+
 export function getUserById(id) {
   return _getUserById(id);
 }

@@ -26,7 +26,6 @@ class NavBar extends Component {
   };
 
   render() {
-    console.log(this.props.loading);
     const { activeItem } = this.state;
 
     this.props.history.listen((l, a) => {
@@ -74,10 +73,9 @@ class NavBar extends Component {
           <div className="user-container">
             <p className="welcome-msg">Hi {this.props.currentUser.name}</p>
             <Menu.Item
-              className="nav-bar-item"
+              className="nav-bar-item log-item"
               as={Link}
               to="/login"
-              className="log-item"
               name="log-out"
               active={activeItem === "/login"}
               onClick={this.handleItemClick}
@@ -87,10 +85,9 @@ class NavBar extends Component {
           </div>
         ) : (
           <Menu.Item
-            className="nav-bar-item"
+            className="nav-bar-item log-item"
             as={Link}
             to="/login"
-            className="log-item"
             name="/login"
             active={activeItem === "/login"}
             onClick={this.handleItemClick}

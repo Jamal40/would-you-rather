@@ -18,12 +18,13 @@ class Login extends React.Component {
   users = {};
 
   handleChange = async (e, y) => {
-    let chosenUser = this.props.allUsers[y.value];
+    let chosenUser = this.props.allUsers.filter((u) => u._id === y.value)[0];
 
     this.setState({
       chosenUser: chosenUser,
     });
   };
+
   handleClick = () => {
     this.props.authorizeUser(this.state.chosenUser);
   };
@@ -34,9 +35,9 @@ class Login extends React.Component {
     let usersArr = [];
     for (let u in this.props.allUsers) {
       usersArr.push({
-        key: this.props.allUsers[u].id,
+        key: this.props.allUsers[u]._id,
         text: this.props.allUsers[u].name,
-        value: this.props.allUsers[u].id,
+        value: this.props.allUsers[u]._id,
         image: { avatar: true, src: this.props.allUsers[u].avatarURL },
       });
     }
