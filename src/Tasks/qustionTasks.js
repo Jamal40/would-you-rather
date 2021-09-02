@@ -3,7 +3,13 @@ import { getQuestions, saveQuestion, saveQuestionAnswer } from "../assets/api";
 
 export const GetAllQuestions = () => {
   return (dispatch) => {
+    dispatch({
+      type: types.ENABLE_LOADING,
+    });
     getQuestions().then((questions) => {
+      dispatch({
+        type: types.DISABLE_LOADING,
+      });
       dispatch({
         type: types.GET_ALL_QUESTIONS,
         payload: questions,

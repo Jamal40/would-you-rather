@@ -26,6 +26,7 @@ class NavBar extends Component {
   };
 
   render() {
+    console.log(this.props.loading);
     const { activeItem } = this.state;
 
     this.props.history.listen((l, a) => {
@@ -47,7 +48,6 @@ class NavBar extends Component {
         >
           Home
         </Menu.Item>
-
         <Menu.Item
           className="nav-bar-item"
           disabled={!this.props.currentUser.id}
@@ -59,7 +59,6 @@ class NavBar extends Component {
         >
           New Question
         </Menu.Item>
-
         <Menu.Item
           className="nav-bar-item"
           disabled={!this.props.currentUser.id}
@@ -71,7 +70,6 @@ class NavBar extends Component {
         >
           Leaderboard
         </Menu.Item>
-
         {this.props.currentUser.id ? (
           <div className="user-container">
             <p className="welcome-msg">Hi {this.props.currentUser.name}</p>
@@ -106,7 +104,10 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { currentUser: state.authUserReducer };
+  return {
+    currentUser: state.authUserReducer,
+    loading: state.loaderReducer,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
