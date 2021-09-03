@@ -22,6 +22,10 @@ export function getQuestions() {
   return _getQuestions();
 }
 
+export function getQuestions_V2() {
+  return fetch("http://localhost:1001/api/questions");
+}
+
 export function saveQuestion(question) {
   return _saveQuestion(question);
 }

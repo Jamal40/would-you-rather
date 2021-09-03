@@ -1,12 +1,17 @@
 import { types } from "../assets/types";
-import { getQuestions, saveQuestion, saveQuestionAnswer } from "../assets/api";
+import {
+  getQuestions,
+  getQuestions_V2,
+  saveQuestion,
+  saveQuestionAnswer,
+} from "../assets/api";
 
 export const GetAllQuestions = () => {
   return (dispatch) => {
     dispatch({
       type: types.ENABLE_LOADING,
     });
-    getQuestions().then((questions) => {
+    getQuestions_V2().then((questions) => {
       dispatch({
         type: types.DISABLE_LOADING,
       });
