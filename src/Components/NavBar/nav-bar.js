@@ -38,9 +38,9 @@ class NavBar extends Component {
       <Menu className="menu-container">
         <Menu.Item
           className="nav-bar-item"
-          disabled={!this.props.currentUser.id}
+          disabled={!this.props.currentUser._id}
           as={Link}
-          to={this.props.currentUser.id ? "/" : "/login"}
+          to={this.props.currentUser._id ? "/" : "/login"}
           name="/"
           active={activeItem === "/"}
           onClick={this.handleItemClick}
@@ -49,9 +49,9 @@ class NavBar extends Component {
         </Menu.Item>
         <Menu.Item
           className="nav-bar-item"
-          disabled={!this.props.currentUser.id}
+          disabled={!this.props.currentUser._id}
           as={Link}
-          to={this.props.currentUser.id ? "/questions/add" : "/login"}
+          to={this.props.currentUser._id ? "/questions/add" : "/login"}
           name="/questions/add"
           active={activeItem === "/questions/add"}
           onClick={this.handleItemClick}
@@ -60,16 +60,16 @@ class NavBar extends Component {
         </Menu.Item>
         <Menu.Item
           className="nav-bar-item"
-          disabled={!this.props.currentUser.id}
+          disabled={!this.props.currentUser._id}
           as={Link}
-          to={this.props.currentUser.id ? "/leaderboards" : "/login"}
+          to={this.props.currentUser._id ? "/leaderboards" : "/login"}
           name="/leaderboards"
           active={activeItem === "/leaderboards"}
           onClick={this.handleItemClick}
         >
           Leaderboard
         </Menu.Item>
-        {this.props.currentUser.id ? (
+        {this.props.currentUser._id ? (
           <div className="user-container">
             <p className="welcome-msg">Hi {this.props.currentUser.name}</p>
             <Menu.Item
