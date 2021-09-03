@@ -27,11 +27,9 @@ class Question extends Component {
           <Image
             floated="right"
             size="mini"
-            src={this.props.allUsers[this.props.questionAuthor]?.avatarURL}
+            src={this.props.questionAuthor.avatarURL}
           />
-          <Card.Header>
-            {this.props.allUsers[this.props.questionAuthor]?.name} asks
-          </Card.Header>
+          <Card.Header>{this.props.questionAuthor.name} asks</Card.Header>
           <Card.Meta>Would you rather...</Card.Meta>
           <Card.Description>
             <ul className="question-ul">

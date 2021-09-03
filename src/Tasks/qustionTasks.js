@@ -6,12 +6,13 @@ import {
   saveQuestionAnswer,
 } from "../assets/api";
 
-export const GetAllQuestions = () => {
+export const GetAllQuestions = (userId) => {
   return (dispatch) => {
     dispatch({
       type: types.ENABLE_LOADING,
     });
-    getQuestions_V2().then((questions) => {
+    getQuestions_V2(userId).then(async (res) => {
+      const questions = await res.json();
       dispatch({
         type: types.DISABLE_LOADING,
       });

@@ -22,8 +22,8 @@ export function getQuestions() {
   return _getQuestions();
 }
 
-export function getQuestions_V2() {
-  return fetch("http://localhost:1001/api/questions");
+export function getQuestions_V2(userId) {
+  return fetch(`http://localhost:1001/api/questions/?userId=${userId}`);
 }
 
 export function saveQuestion(question) {

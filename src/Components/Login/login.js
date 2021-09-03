@@ -7,6 +7,7 @@ import "./login.css";
 //Redux Imports
 import { connect } from "react-redux";
 import { authorizeUser } from "../../Actions/authorizeUserActions";
+import { GetAllQuestions } from "../../Tasks/qustionTasks";
 
 class Login extends React.Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class Login extends React.Component {
   };
 
   handleClick = () => {
-    this.props.authorizeUser(this.state.chosenUser);
+    this.props.logIn(this.state.chosenUser);
+    this.props.GetAllQuestions(this.state.chosenUser._id);
   };
 
   componentDidMount() {}
@@ -79,4 +81,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { authorizeUser })(Login);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    GetAllQuestions: (data) => dispatch(GetAllQuestions(data)),
+    logIn: (data) => dispatch(authorizeUser(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

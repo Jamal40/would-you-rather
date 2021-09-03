@@ -5,7 +5,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Link, withRouter } from "react-router-dom";
 
 //tasks
-import { GetAllQuestions } from "../../Tasks/qustionTasks";
+// import { GetAllQuestions } from "../../Tasks/qustionTasks";
 import { GetAllUsers } from "../../Tasks/userTasks";
 
 //Redux Imports
@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 class NavBar extends Component {
   componentDidMount() {
-    this.props.GetAllQuestions();
+    //this.props.GetAllQuestions();
     this.props.GetAllUsers();
   }
 
@@ -109,7 +109,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GetAllQuestions: () => dispatch(GetAllQuestions()),
+    // GetAllQuestions: () => dispatch(GetAllQuestions()),
     GetAllUsers: () => dispatch(GetAllUsers()),
     logOut: () =>
       dispatch({

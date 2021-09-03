@@ -1,6 +1,6 @@
 import { types } from "../assets/types";
 
-const questionsReducer = (state = {}, action) => {
+const questionsReducer = (state = null, action) => {
   switch (action.type) {
     case types.GET_ALL_QUESTIONS:
       state = action.payload;

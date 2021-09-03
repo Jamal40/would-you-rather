@@ -16,36 +16,26 @@ import { connect } from "react-redux";
 class Home extends Component {
   state = {
     activeItem: "unanswered",
-    answeredQuesstions: [],
-    unansweredQuestions: [],
   };
   usedQuestions = {};
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   updateFromReduxState = () => {
-    const cu = this.props.allUsers.filter(
-      (_user) => _user._id === this.props.currentUser._id
-    );
-    let answeredQuestions = [];
-    for (let questionId in cu.answers) {
-      answeredQuestions.push(this.props.allQuestions[questionId]);
-    }
+    if (this.props.allQuestions) {
+      let answeredQuestions = this.props.allQuestions.filter((q) => q.answer);
+      let unansweredQuestions = this.props.allQuestions.filter(
+        (q) => !q.answer
+      );
 
-    let unansweredQuestions = [];
-    for (let questioonId in this.props.allQuestions) {
-      if (!answeredQuestions.map((q) => q.id).includes(questioonId)) {
-        unansweredQuestions.push(this.props.allQuestions[questioonId]);
-      }
+      this.usedQuestions = {
+        answeredQuestions: answeredQuestions.sort((f, s) => {
+          return s.timestamp - f.timestamp;
+        }),
+        unansweredQuestions: unansweredQuestions.sort((f, s) => {
+          return s.timestamp - f.timestamp;
+        }),
+      };
     }
-
-    this.usedQuestions = {
-      answeredQuestions: answeredQuestions.sort((f, s) => {
-        return s.timestamp - f.timestamp;
-      }),
-      unansweredQuestions: unansweredQuestions.sort((f, s) => {
-        return s.timestamp - f.timestamp;
-      }),
-    };
   };
 
   render() {
@@ -57,55 +47,59 @@ class Home extends Component {
     }
 
     this.updateFromReduxState();
-    return (
-      <div className="home-container">
-        <Menu pointing>
-          <Menu.Item
-            className="home-item"
-            name="answered"
-            active={activeItem === "answered"}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            className="home-item"
-            name="unanswered"
-            active={activeItem === "unanswered"}
-            onClick={this.handleItemClick}
-          />
-        </Menu>
-        <Segment>
-          {activeItem === "unanswered" ? (
-            <div>
-              <Card.Group className="home-questions-container">
-                {this.usedQuestions.unansweredQuestions.map((q) => (
-                  <Question
-                    questionId={q.id}
-                    firstOtion={q.optionOne.text}
-                    secondOption={q.optionTwo.text}
-                    questionAuthor={q.author}
-                    key={q.id}
-                  />
-                ))}
-              </Card.Group>
-            </div>
-          ) : (
-            <div>
-              <Card.Group className="home-questions-container">
-                {this.usedQuestions.answeredQuestions.map((q) => (
-                  <Question
-                    questionId={q.id}
-                    firstOtion={q.optionOne.text}
-                    secondOption={q.optionTwo.text}
-                    questionAuthor={q.author}
-                    key={q.id}
-                  />
-                ))}
-              </Card.Group>
-            </div>
-          )}
-        </Segment>
-      </div>
-    );
+    if (this.props.allQuestions) {
+      return (
+        <div className="home-container">
+          <Menu pointing>
+            <Menu.Item
+              className="home-item"
+              name="answered"
+              active={activeItem === "answered"}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              className="home-item"
+              name="unanswered"
+              active={activeItem === "unanswered"}
+              onClick={this.handleItemClick}
+            />
+          </Menu>
+          <Segment>
+            {activeItem === "unanswered" ? (
+              <div>
+                <Card.Group className="home-questions-container">
+                  {this.usedQuestions.unansweredQuestions.map((q) => (
+                    <Question
+                      questionId={q._id}
+                      firstOtion={q.optionOne}
+                      secondOption={q.optionTwo}
+                      questionAuthor={q.author}
+                      key={q._id}
+                    />
+                  ))}
+                </Card.Group>
+              </div>
+            ) : (
+              <div>
+                <Card.Group className="home-questions-container">
+                  {this.usedQuestions.answeredQuestions.map((q) => (
+                    <Question
+                      questionId={q._id}
+                      firstOtion={q.optionOne}
+                      secondOption={q.optionTwo}
+                      questionAuthor={q.author}
+                      key={q.id}
+                    />
+                  ))}
+                </Card.Group>
+              </div>
+            )}
+          </Segment>
+        </div>
+      );
+    } else {
+      return <div></div>;
+    }
   }
 }
 
