@@ -17,7 +17,6 @@ export const GetLeaderboards = () => {
   return (dispatch) => {
     getLeaderboards().then(async (res) => {
       const leaderboards = await res.json();
-      console.log(leaderboards);
       dispatch({
         type: types.ASSIGN_LEADERBOARDS,
         payload: leaderboards,

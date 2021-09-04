@@ -87,6 +87,7 @@ class Home extends Component {
                     firstOtion={q.optionOne}
                     secondOption={q.optionTwo}
                     questionAuthor={q.author}
+                    questionAnswer={q.answer}
                     key={q._id}
                   />
                 ))}

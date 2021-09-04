@@ -14,7 +14,7 @@ class Question extends Component {
   componentDidMount() {}
 
   handleClick = (e) => {
-    if (!this.props.currentUser.answers[this.props.questionId]) {
+    if (!this.props.questionAnswer) {
       this.props.history.push(`/questions/answer/${this.props.questionId}`);
     } else {
       this.props.history.push(`/questions/${this.props.questionId}`);

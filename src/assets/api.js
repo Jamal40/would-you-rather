@@ -35,7 +35,6 @@ export function saveQuestion(question) {
 }
 
 export function addQuestion(question) {
-  console.log(question);
   return fetch("http://localhost:1001/api/questions", {
     method: "POST",
     mode: "cors",

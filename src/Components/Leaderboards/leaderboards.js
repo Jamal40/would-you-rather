@@ -22,30 +22,11 @@ class Leaderboards extends Component {
     this.props.GetLeaderboards();
   }
 
-  updateFromReduxState() {
-    const allUsers = [];
-
-    for (let userId in this.props.allUsers) {
-      allUsers.push(this.props.allUsers[userId]);
-    }
-    allUsers.sort((f, s) => {
-      return (
-        Object.keys(s.answers).length +
-        s.questions.length -
-        (Object.keys(f.answers).length + f.questions.length)
-      );
-    });
-
-    this.topUsers = allUsers.slice(0, 3);
-  }
-
   render() {
     if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
-    console.log(this.props.topUsers);
-    // this.updateFromReduxState();
     return (
       <div>
         {this.props.topUsers?.map((user, index) => (
@@ -66,8 +47,6 @@ class Leaderboards extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.authUserReducer,
-    allQuestions: state.questionsReducer,
-    allUsers: state.userReducer,
     topUsers: state.leaderboardsReducer,
   };
 };
