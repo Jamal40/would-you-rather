@@ -97,6 +97,10 @@ class Login extends React.Component {
         >
           Sign in
         </Button>
+        <p>
+          Or if you don't have an account just{" "}
+          <Link to="/users/add">create one</Link>
+        </p>
       </div>
     );
   };
