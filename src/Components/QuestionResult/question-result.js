@@ -14,21 +14,44 @@ import { withRouter, Redirect } from "react-router";
 import { connect } from "react-redux";
 
 class QuestionResult extends Component {
+  constructor(props) {
+    super(props);
+    this.state.requiredQuestion = null;
+    this.state.loadingQuestion = true;
+  }
+  state = {};
+  _isMounted = false;
+  componentDidMount() {
+    this._isMounted = true;
+    fetch(
+      `http://localhost:1001/api/questions/stats/${this.props.match.params.id}`
+    ).then(async (res) => {
+      const requiredQuestion = await res.json();
+      if (this._isMounted) {
+        this.setState({
+          requiredQuestion: requiredQuestion,
+          loadingQuestion: false,
+        });
+      }
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   render() {
-    if (!this.props.currentUser.id) {
+    if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
 
-    const requiredQuestion =
-      this.props.allQuestions[this.props.match.params.id];
-
-    if (!requiredQuestion) {
+    if (!this.state.requiredQuestion) {
       return <NotFound />;
     }
 
-    let votes1 = requiredQuestion?.optionOne.votes.length;
-    let votes2 = requiredQuestion?.optionTwo.votes.length;
+    console.log(this.state.requiredQuestion);
+
+    let votes1 = this.state.requiredQuestion?.optionOneCount;
+    let votes2 = this.state.requiredQuestion?.optionTwoCount;
     let totalVotes = votes1 + votes2;
 
     return (
@@ -38,17 +61,17 @@ class QuestionResult extends Component {
             <Image
               floated="right"
               size="mini"
-              src={this.props.allUsers[requiredQuestion?.author]?.avatarURL}
+              src={this.state.requiredQuestion?.author.avatarURL}
             />
             <Card.Header>
-              {this.props.allUsers[requiredQuestion?.author]?.name} asks
+              {this.state.requiredQuestion?.author.name} asks
             </Card.Header>
             <Card.Description>Would you rather...?</Card.Description>
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
               <Button basic disabled color="green">
-                {requiredQuestion?.optionOne.text}
+                {this.state.requiredQuestion?.optionOne}
                 <br />
                 <br />
                 {`${votes1} vote/s => ${((votes1 * 100) / totalVotes).toFixed(
@@ -56,7 +79,7 @@ class QuestionResult extends Component {
                 )}%`}
               </Button>
               <Button disabled basic color="red">
-                {requiredQuestion?.optionTwo.text}
+                {this.state.requiredQuestion?.optionTwo}
                 <br />
                 <br />
                 {`${votes2} vote/s => ${((votes2 * 100) / totalVotes).toFixed(

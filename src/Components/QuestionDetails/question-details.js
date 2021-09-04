@@ -22,7 +22,6 @@ class QuestionDetails extends Component {
       return <Redirect to="/login" />;
     }
 
-    //let cu = this.props.currentUser;
     const requiredQuestion = this.props.allQuestions?.filter(
       (q) => q._id == this.props.match.params.id
     )[0];
@@ -61,7 +60,9 @@ class QuestionDetails extends Component {
                     answer: 1,
                   });
 
-                  this.props.history.push(`/questions/${requiredQuestion?.id}`);
+                  this.props.history.push(
+                    `/questions/${requiredQuestion?._id}`
+                  );
                 }}
                 basic
                 color="olive"
@@ -76,7 +77,9 @@ class QuestionDetails extends Component {
                     answer: 2,
                   });
 
-                  this.props.history.push(`/questions/${requiredQuestion?.id}`);
+                  this.props.history.push(
+                    `/questions/${requiredQuestion?._id}`
+                  );
                 }}
                 basic
                 color="teal"

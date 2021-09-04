@@ -48,3 +48,13 @@ export function addQuestion(question) {
 export function saveQuestionAnswer(answer) {
   return _saveQuestionAnswer(answer);
 }
+export function addAnswer(answer) {
+  return fetch("http://localhost:1001/api/answers", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(answer),
+  });
+}
