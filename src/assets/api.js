@@ -14,6 +14,10 @@ export function getUsers_V2() {
   return fetch("http://localhost:1001/api/users");
 }
 
+export function getLeaderboards() {
+  return fetch("http://localhost:1001/api/users/leaderboards");
+}
+
 export function getUserById(id) {
   return _getUserById(id);
 }
@@ -28,6 +32,18 @@ export function getQuestions_V2(userId) {
 
 export function saveQuestion(question) {
   return _saveQuestion(question);
+}
+
+export function addQuestion(question) {
+  console.log(question);
+  return fetch("http://localhost:1001/api/questions", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(question),
+  });
 }
 
 export function saveQuestionAnswer(answer) {

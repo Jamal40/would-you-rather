@@ -3,6 +3,7 @@ import {
   getQuestions,
   getQuestions_V2,
   saveQuestion,
+  addQuestion,
   saveQuestionAnswer,
 } from "../assets/api";
 
@@ -26,8 +27,10 @@ export const GetAllQuestions = (userId) => {
 
 export const AddQuestion = (question) => {
   return (dispatch) => {
-    saveQuestion(question).then((res) => {
-      getQuestions().then((questions) => {
+    addQuestion(question).then(async (res) => {
+      const addedQuestion = await res.json();
+      getQuestions_V2(addedQuestion.author).then(async (res) => {
+        const questions = await res.json();
         dispatch({
           type: types.ADD_QUESTION,
           payload: questions,

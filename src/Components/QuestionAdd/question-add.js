@@ -8,7 +8,6 @@ import { assignCameFromLink } from "../../Actions/authorizeUserActions";
 
 //tasks
 import { AddQuestion } from "../../Tasks/qustionTasks";
-import { GetAllUsers } from "../../Tasks/userTasks";
 
 ///react router
 import { withRouter, Redirect } from "react-router";
@@ -21,13 +20,12 @@ class QuestionAdd extends Component {
 
   addQuestion = () => {
     const newQuestion = {
-      optionOneText: this.state.firstOption,
-      optionTwoText: this.state.secondOption,
-      author: this.props.currentUser.id,
+      optionOne: this.state.firstOption,
+      optionTwo: this.state.secondOption,
+      author: this.props.currentUser._id,
     };
 
     this.props.AddQuestion(newQuestion);
-    this.props.GetAllUsers();
     const inputs = document.querySelectorAll(".question-add-container input");
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].value = "";
@@ -47,7 +45,7 @@ class QuestionAdd extends Component {
   };
 
   render() {
-    if (!this.props.currentUser.id) {
+    if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
@@ -83,7 +81,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddQuestion: (data) => dispatch(AddQuestion(data)),
-    GetAllUsers: () => dispatch(GetAllUsers()),
     AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
   };
 };

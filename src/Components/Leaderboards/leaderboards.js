@@ -6,6 +6,9 @@ import "semantic-ui-css/semantic.min.css";
 //Actions
 import { assignCameFromLink } from "../../Actions/authorizeUserActions";
 
+//Tasks
+import { GetLeaderboards } from "../../Tasks/userTasks";
+
 //router
 import { Redirect } from "react-router-dom";
 
@@ -15,7 +18,9 @@ import { connect } from "react-redux";
 class Leaderboards extends Component {
   state = {};
   topUsers = [];
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.GetLeaderboards();
+  }
 
   updateFromReduxState() {
     const allUsers = [];
@@ -35,22 +40,22 @@ class Leaderboards extends Component {
   }
 
   render() {
-    if (!this.props.currentUser.id) {
+    if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
-
-    this.updateFromReduxState();
+    console.log(this.props.topUsers);
+    // this.updateFromReduxState();
     return (
       <div>
-        {this.topUsers.map((user, index) => (
+        {this.props.topUsers?.map((user, index) => (
           <UserCard
-            key={user.id}
+            key={user._id}
             rank={index + 1}
             avatar={user.avatarURL}
             userName={user.name}
-            answersCount={Object.keys(user.answers).length}
-            createdQuestionsCount={user.questions.length}
+            answersCount={user.addedAnswersCount}
+            createdQuestionsCount={user.addedQuestionsCount}
           />
         ))}
       </div>
@@ -63,12 +68,14 @@ const mapStateToProps = (state) => {
     currentUser: state.authUserReducer,
     allQuestions: state.questionsReducer,
     allUsers: state.userReducer,
+    topUsers: state.leaderboardsReducer,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
+    GetLeaderboards: () => dispatch(GetLeaderboards()),
   };
 };
 

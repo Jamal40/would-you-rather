@@ -1,9 +1,7 @@
 import { types } from "../assets/types";
-import { getUsers, getUsers_V2 } from "../assets/api";
+import { getUsers, getUsers_V2, getLeaderboards } from "../assets/api";
 
 export const GetAllUsers = () => {
-  console.log("test");
-
   return (dispatch) => {
     getUsers_V2().then(async (res) => {
       let users = await res.json();
@@ -12,11 +10,18 @@ export const GetAllUsers = () => {
         payload: users,
       });
     });
-    // getUsers().then((users) => {
-    //   dispatch({
-    //     type: types.GET_ALL_USERS,
-    //     payload: users,
-    //   });
-    // });
+  };
+};
+
+export const GetLeaderboards = () => {
+  return (dispatch) => {
+    getLeaderboards().then(async (res) => {
+      const leaderboards = await res.json();
+      console.log(leaderboards);
+      dispatch({
+        type: types.ASSIGN_LEADERBOARDS,
+        payload: leaderboards,
+      });
+    });
   };
 };
