@@ -71,3 +71,14 @@ export function logUserIn(userCredentials) {
     body: JSON.stringify(userCredentials),
   });
 }
+
+export function addUser(user) {
+  return fetch("http://localhost:1001/api/user/register", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+}

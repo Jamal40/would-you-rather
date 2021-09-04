@@ -5,6 +5,9 @@ let userReducer = (state = {}, action) => {
     case types.GET_ALL_USERS:
       return action.payload;
 
+    case types.USER_DATA_ERROR:
+      return action.payload;
+
     default:
       return state;
   }

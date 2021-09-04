@@ -12,3 +12,7 @@ export function getUserById(id) {
     payload: id,
   };
 }
+
+export function addUser(user) {
+  return { type: types.ADD_USER, payload: user };
+}

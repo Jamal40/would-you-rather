@@ -8,6 +8,7 @@ import Leaderboards from "./Components/Leaderboards/leaderboards";
 import Login from "./Components/Login/login";
 import QuestionDetails from "./Components/QuestionDetails/question-details";
 import QuestionResult from "./Components/QuestionResult/question-result";
+import UserAdd from "./Components/UserAdd/user-add";
 // import UserCard from "./Components/UserCard/user-card";
 
 //Router
@@ -42,6 +43,7 @@ function App(props) {
           <NavBar />
           <Switch>
             <Route path="/login" exact component={Login} />
+            <Route path="/users/add" component={UserAdd} />
             <Route path="/questions/add" component={QuestionAdd} />
             <Route path="/questions/answer/:id" component={QuestionDetails} />
             <Route path="/questions/:id" component={QuestionResult} />

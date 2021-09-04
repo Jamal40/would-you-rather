@@ -4,6 +4,7 @@ import {
   getUsers_V2,
   getLeaderboards,
   logUserIn,
+  addUser,
 } from "../assets/api";
 
 export const GetAllUsers = () => {
@@ -65,6 +66,37 @@ export const LogUserIn = (user, password) => {
         dispatch({
           type: types.AUTHORIZE_ERROR,
           payload: err.msg,
+        });
+      }
+    });
+  };
+};
+
+export const AddUser = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: types.ENABLE_LOADING,
+    });
+    addUser(user).then(async (res) => {
+      if (res.status === 200) {
+        getUsers_V2().then(async (res) => {
+          dispatch({
+            type: types.DISABLE_LOADING,
+          });
+          const allUsers = await res.json();
+
+          dispatch({
+            type: types.GET_ALL_USERS,
+            payload: allUsers,
+          });
+        });
+      }
+
+      if (res.status === 400) {
+        const err = await res.json();
+        dispatch({
+          type: types.USER_DATA_ERROR,
+          payload: err,
         });
       }
     });
