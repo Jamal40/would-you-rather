@@ -1,0 +1,6 @@
+.loading-spinner-spinning {
+  height: 80vh;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+}

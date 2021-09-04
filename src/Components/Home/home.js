@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Question from "../Question/question";
 import { Redirect } from "react-router-dom";
+import LoadingSpinner from "../LoaidngSpinner/loading-spinner";
 
 import { Menu, Segment } from "semantic-ui-react";
 import "./home.css";
@@ -44,6 +45,10 @@ class Home extends Component {
     if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
+    }
+
+    if (this.props.laoding) {
+      return <LoadingSpinner />;
     }
 
     this.updateFromReduxState();
@@ -107,6 +112,7 @@ const mapStateToProps = (state) => {
     currentUser: state.authUserReducer,
     allQuestions: state.questionsReducer,
     allUsers: state.userReducer,
+    laoding: state.loaderReducer,
   };
 };
 

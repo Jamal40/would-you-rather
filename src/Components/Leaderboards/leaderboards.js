@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserCard from "../UserCard/user-card";
+import LoadingSpinner from "../LoaidngSpinner/loading-spinner";
 import "./leaderboards.css";
 import "semantic-ui-css/semantic.min.css";
 
@@ -27,6 +28,11 @@ class Leaderboards extends Component {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
+
+    if (this.props.loading) {
+      return <LoadingSpinner />;
+    }
+
     return (
       <div>
         {this.props.topUsers?.map((user, index) => (
@@ -48,6 +54,7 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.authUserReducer,
     topUsers: state.leaderboardsReducer,
+    loading: state.loaderReducer,
   };
 };
 
