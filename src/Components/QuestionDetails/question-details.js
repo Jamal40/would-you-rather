@@ -8,8 +8,6 @@ import { assignCameFromLink } from "../../Actions/authorizeUserActions";
 
 //tasks
 import { AddAnswer } from "../../Tasks/qustionTasks";
-import { GetAllUsers } from "../../Tasks/userTasks";
-import { GetAllQuestions } from "../../Tasks/qustionTasks";
 
 ///react router
 import { withRouter, Redirect } from "react-router";
@@ -24,19 +22,21 @@ class QuestionDetails extends Component {
       return <Redirect to="/login" />;
     }
 
-    //let cu = this.props.allUsers[this.props.currentUser.id];
-
-    // if (cu.answers[this.props.match.params.id]) {
-    //   return <Redirect to={`/questions/${this.props.match.params.id}`} />;
-    // }
-
-    // if (!this.props.allQuestions[this.props.match.params.id]) {
-    //   return <Redirect to={`/questions/${this.props.match.params.id}`} />;
-    // }
-
-    const requiredQuestion = this.props.allQuestions.filter(
+    //let cu = this.props.currentUser;
+    const requiredQuestion = this.props.allQuestions?.filter(
       (q) => q._id == this.props.match.params.id
     )[0];
+    if (requiredQuestion?.answer) {
+      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    }
+
+    if (
+      !this.props.allQuestions
+        .map((q) => q._id)
+        .includes(this.props.match.params.id)
+    ) {
+      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    }
 
     return (
       <div className="question-details-main">
@@ -45,9 +45,9 @@ class QuestionDetails extends Component {
             <Image
               floated="right"
               size="mini"
-              src={requiredQuestion?.avatarURL}
+              src={requiredQuestion?.author.avatarURL}
             />
-            <Card.Header>{requiredQuestion.name} asks</Card.Header>
+            <Card.Header>{requiredQuestion?.author.name} asks</Card.Header>
 
             <Card.Description>Would you rather...? </Card.Description>
           </Card.Content>
@@ -56,34 +56,32 @@ class QuestionDetails extends Component {
               <Button
                 onClick={() => {
                   this.props.AddAnswer({
-                    authedUser: this.props.currentUser.id,
-                    qid: requiredQuestion.id,
-                    answer: "optionOne",
+                    userId: this.props.currentUser._id,
+                    questionId: requiredQuestion?._id,
+                    answer: 1,
                   });
-                  this.props.GetAllUsers();
-                  this.props.GetAllQuestions();
-                  this.props.history.push(`/questions/${requiredQuestion.id}`);
+
+                  this.props.history.push(`/questions/${requiredQuestion?.id}`);
                 }}
                 basic
                 color="olive"
               >
-                {requiredQuestion?.optionOne.text}
+                {requiredQuestion?.optionOne}
               </Button>
               <Button
                 onClick={() => {
                   this.props.AddAnswer({
-                    authedUser: this.props.currentUser.id,
-                    qid: requiredQuestion.id,
-                    answer: "optionTwo",
+                    userId: this.props.currentUser._id,
+                    questionId: requiredQuestion?._id,
+                    answer: 2,
                   });
-                  this.props.GetAllUsers();
-                  this.props.GetAllQuestions();
-                  this.props.history.push(`/questions/${requiredQuestion.id}`);
+
+                  this.props.history.push(`/questions/${requiredQuestion?.id}`);
                 }}
                 basic
                 color="teal"
               >
-                {requiredQuestion?.optionTwo.text}
+                {requiredQuestion?.optionTwo}
               </Button>
             </div>
           </Card.Content>
@@ -104,8 +102,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     AddAnswer: (data) => dispatch(AddAnswer(data)),
-    GetAllUsers: () => dispatch(GetAllUsers()),
-    GetAllQuestions: () => dispatch(GetAllQuestions()),
     AssignCameFromLink: (link) => dispatch(assignCameFromLink(link)),
   };
 };
