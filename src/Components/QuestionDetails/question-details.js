@@ -19,23 +19,24 @@ import { connect } from "react-redux";
 
 class QuestionDetails extends Component {
   render() {
-    if (!this.props.currentUser.id) {
+    if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
       return <Redirect to="/login" />;
     }
 
-    let cu = this.props.allUsers[this.props.currentUser.id];
+    //let cu = this.props.allUsers[this.props.currentUser.id];
 
-    if (cu.answers[this.props.match.params.id]) {
-      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
-    }
+    // if (cu.answers[this.props.match.params.id]) {
+    //   return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    // }
 
-    if (!this.props.allQuestions[this.props.match.params.id]) {
-      return <Redirect to={`/questions/${this.props.match.params.id}`} />;
-    }
+    // if (!this.props.allQuestions[this.props.match.params.id]) {
+    //   return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    // }
 
-    const requiredQuestion =
-      this.props.allQuestions[this.props.match.params.id];
+    const requiredQuestion = this.props.allQuestions.filter(
+      (q) => q._id == this.props.match.params.id
+    )[0];
 
     return (
       <div className="question-details-main">
@@ -44,11 +45,9 @@ class QuestionDetails extends Component {
             <Image
               floated="right"
               size="mini"
-              src={this.props.allUsers[requiredQuestion?.author]?.avatarURL}
+              src={requiredQuestion?.avatarURL}
             />
-            <Card.Header>
-              {this.props.allUsers[requiredQuestion?.author]?.name} asks
-            </Card.Header>
+            <Card.Header>{requiredQuestion.name} asks</Card.Header>
 
             <Card.Description>Would you rather...? </Card.Description>
           </Card.Content>
