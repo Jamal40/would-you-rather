@@ -4,12 +4,11 @@ let authUserReducer = (state = { link: "/" }, action) => {
   switch (action.type) {
     case types.AUTHORTIZE_USER:
       const user = action.payload;
-      return user;
+      return { ...state, ...user };
 
     case types.ASSIGN_CAME_FROM_LINK:
-      const link = action.payload;
-
-      return { ...state, link };
+      const _link = action.payload;
+      return { link: _link };
 
     case types.LOG_USER_OUT:
       return { link: "/" };
