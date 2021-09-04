@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import NotFound from "../NotFound/not-found";
+import LoadingSpinner from "../LoaidngSpinner/loading-spinner";
 import "./question-result.css";
 import "semantic-ui-css/semantic.min.css";
 
@@ -44,11 +45,13 @@ class QuestionResult extends Component {
       return <Redirect to="/login" />;
     }
 
-    if (!this.state.requiredQuestion) {
-      return <NotFound />;
+    if (this.props.loading || this.state.loadingQuestion) {
+      return <LoadingSpinner />;
     }
 
-    console.log(this.state.requiredQuestion);
+    if (!this.state.requiredQuestion && !this.state.loadingQuestion) {
+      return <NotFound />;
+    }
 
     let votes1 = this.state.requiredQuestion?.optionOneCount;
     let votes2 = this.state.requiredQuestion?.optionTwoCount;
@@ -99,6 +102,7 @@ const mapStateToProps = (state) => {
     currentUser: state.authUserReducer,
     allQuestions: state.questionsReducer,
     allUsers: state.userReducer,
+    loading: state.loaderReducer,
   };
 };
 

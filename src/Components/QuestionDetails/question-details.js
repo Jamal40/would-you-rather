@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Card, Image } from "semantic-ui-react";
+import LoadingSpinner from "../LoaidngSpinner/loading-spinner";
 import "./question-details.css";
 import "semantic-ui-css/semantic.min.css";
 
@@ -35,6 +36,10 @@ class QuestionDetails extends Component {
         .includes(this.props.match.params.id)
     ) {
       return <Redirect to={`/questions/${this.props.match.params.id}`} />;
+    }
+
+    if (this.props.loading) {
+      return <LoadingSpinner />;
     }
 
     return (
@@ -99,6 +104,7 @@ const mapStateToProps = (state) => {
     currentUser: state.authUserReducer,
     allQuestions: state.questionsReducer,
     allUsers: state.userReducer,
+    loading: state.loaderReducer,
   };
 };
 
