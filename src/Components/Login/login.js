@@ -1,13 +1,19 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import { Button } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-
 import "./login.css";
+import "semantic-ui-css/semantic.min.css";
+
+///react router
+import { withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+
 //Redux Imports
 import { connect } from "react-redux";
 import { authorizeUser } from "../../Actions/authorizeUserActions";
 import { GetAllQuestions } from "../../Tasks/qustionTasks";
+import { LogUserIn } from "../../Tasks/userTasks";
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,14 +26,15 @@ class Login extends React.Component {
 
   handleChange = async (e, y) => {
     let chosenUser = this.props.allUsers.filter((u) => u._id === y.value)[0];
-
     this.setState({
       chosenUser: chosenUser,
     });
   };
 
   handleClick = () => {
-    this.props.logIn(this.state.chosenUser);
+    //this.props.logIn(this.state.chosenUser);
+    const password = document.querySelector(".log-in-password").value;
+    this.props.LogUserIn(this.state.chosenUser, password);
     this.props.GetAllQuestions(this.state.chosenUser._id);
   };
 
@@ -49,6 +56,12 @@ class Login extends React.Component {
 
   render = () => {
     this.updateFromReduxState();
+
+    if (this.props.currentUser._id) {
+      const _path = this.props.currentUser?.link || "/";
+      return <Redirect to={_path} />;
+    }
+
     return (
       <div className="login-container">
         <h2>Welcome to our website</h2>
@@ -60,9 +73,24 @@ class Login extends React.Component {
           options={this.users}
           onChange={this.handleChange}
         />
+
+        <Form className="log-in-password-container">
+          <Form.Field>
+            <input
+              className="log-in-password"
+              type="password"
+              placeholder="password"
+            />
+          </Form.Field>
+          {this.props.currentUser.error ? (
+            <p className="log-in-validation">{this.props.currentUser.error}</p>
+          ) : (
+            ""
+          )}
+        </Form>
         <Button
-          as={Link}
-          to={this.props.currentUser?.link || "/"}
+          // as={Link}
+          // to={this.props.currentUser?.link || "/"}
           disabled={!this.state.chosenUser}
           onClick={this.handleClick}
           color="green"
@@ -85,7 +113,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     GetAllQuestions: (data) => dispatch(GetAllQuestions(data)),
     logIn: (data) => dispatch(authorizeUser(data)),
+    LogUserIn: (userData, password) => dispatch(LogUserIn(userData, password)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

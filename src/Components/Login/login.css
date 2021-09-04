@@ -12,3 +12,11 @@
 .login-container button {
   width: 100px;
 }
+.log-in-password-container {
+  width: 100%;
+}
+.log-in-validation {
+  color: red;
+  font-size: 1.25rem;
+  font-weight: bold;
+}

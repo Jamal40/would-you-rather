@@ -1,5 +1,10 @@
 import { types } from "../assets/types";
-import { getUsers, getUsers_V2, getLeaderboards } from "../assets/api";
+import {
+  getUsers,
+  getUsers_V2,
+  getLeaderboards,
+  logUserIn,
+} from "../assets/api";
 
 export const GetAllUsers = () => {
   return (dispatch) => {
@@ -33,6 +38,35 @@ export const GetLeaderboards = () => {
         type: types.ASSIGN_LEADERBOARDS,
         payload: leaderboards,
       });
+    });
+  };
+};
+
+export const LogUserIn = (user, password) => {
+  return (dispatch) => {
+    dispatch({
+      type: types.ENABLE_LOADING,
+    });
+    logUserIn({ name: user.name, password: password }).then(async (res) => {
+      dispatch({
+        type: types.DISABLE_LOADING,
+      });
+
+      if (res.status == 200) {
+        dispatch({
+          type: types.AUTHORTIZE_USER,
+          payload: user,
+        });
+      }
+
+      if (res.status === 400) {
+        const err = await res.json();
+        console.log(err);
+        dispatch({
+          type: types.AUTHORIZE_ERROR,
+          payload: err.msg,
+        });
+      }
     });
   };
 };
