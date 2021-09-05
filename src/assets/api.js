@@ -65,7 +65,6 @@ export function addAnswer(answer) {
 }
 
 export function logUserIn(userCredentials) {
-  console.log(userCredentials);
   return fetch("https://safe-chamber-24261.herokuapp.com/api/user/login", {
     method: "POST",
     mode: "cors",

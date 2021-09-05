@@ -1,5 +1,3 @@
-import { types } from "../assets/types";
-
 //Actions
 import {
   getAllQuestions,

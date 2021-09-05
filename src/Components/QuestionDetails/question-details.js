@@ -29,7 +29,7 @@ class QuestionDetails extends Component {
     }
 
     const requiredQuestion = this.props.allQuestions?.filter(
-      (q) => q._id == this.props.match.params.id
+      (q) => q._id === this.props.match.params.id
     )[0];
 
     if (this.props.loading && this.state.answerSent) {

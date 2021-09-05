@@ -1,6 +1,5 @@
 import { types } from "../assets/types";
 import {
-  getUsers,
   getUsers_V2,
   getLeaderboards,
   logUserIn,
@@ -53,7 +52,7 @@ export const LogUserIn = (user, password) => {
         type: types.DISABLE_LOADING,
       });
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         dispatch({
           type: types.AUTHORTIZE_USER,
           payload: user,
@@ -62,7 +61,6 @@ export const LogUserIn = (user, password) => {
 
       if (res.status === 400) {
         const err = await res.json();
-        console.log(err);
         dispatch({
           type: types.AUTHORIZE_ERROR,
           payload: err.msg,

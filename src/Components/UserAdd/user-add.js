@@ -79,50 +79,62 @@ class UserAdd extends Component {
           <label>Avatar</label>
           <div className="user-add-avatars-container">
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/45.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/10.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/10.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/11.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/11.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/4.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/4.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/80.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/80.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/100.png"
             />
             <img
+              alt="avatar"
               onClick={this.handleAvatarChosen}
               src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/100.png"
             />

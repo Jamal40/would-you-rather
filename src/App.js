@@ -20,19 +20,21 @@ import { Provider } from "react-redux";
 import rootReducer from "./Reducers";
 import thunk from "redux-thunk";
 
-const logger = (store) => (next) => (action) => {
-  console.group(action.type);
-  console.log("Action:", action);
-  const result = next(action);
-  console.log("New State:", store.getState());
-  console.groupEnd();
-  return result;
-};
+// const logger = (store) => (next) => (action) => {
+//   console.group(action.type);
+//   console.log("Action:", action);
+//   const result = next(action);
+//   console.log("New State:", store.getState());
+//   console.groupEnd();
+//   return result;
+// };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, logger))
+  //composeEnhancers(applyMiddleware(thunk, logger))
+  //removing logger middleware for production
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 function App(props) {

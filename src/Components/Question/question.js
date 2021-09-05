@@ -33,8 +33,8 @@ class Question extends Component {
           <Card.Meta>Would you rather...</Card.Meta>
           <Card.Description>
             <ul className="question-ul">
-              <li>{this.props.firstOtion}?</li>
-              <li>{this.props.secondOption}?</li>
+              <li>{this.props.firstOtion}</li>
+              <li>{this.props.secondOption}</li>
             </ul>
           </Card.Description>
         </Card.Content>
