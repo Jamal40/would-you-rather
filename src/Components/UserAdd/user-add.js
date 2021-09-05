@@ -16,19 +16,15 @@ import { withRouter, Redirect } from "react-router";
 import { connect } from "react-redux";
 
 class UserAdd extends Component {
+  selectedAvatar = null;
   addUser = () => {
     const newUser = {
       name: this.state.userName,
       password: this.state.password,
-      avatarURL: this.state.avatarURL,
+      avatarURL: this.selectedAvatar.src,
     };
 
     this.props.AddUser(newUser);
-
-    // const inputs = document.querySelectorAll(".question-add-container input");
-    // for (let i = 0; i < inputs.length; i++) {
-    //   inputs[i].value = "";
-    // }
   };
 
   userNameChanged = (e) => {
@@ -42,10 +38,10 @@ class UserAdd extends Component {
     });
   };
 
-  avatarChanged = (e) => {
-    this.setState({
-      avatarURL: e.target.value,
-    });
+  handleAvatarChosen = (e) => {
+    this.selectedAvatar?.classList.remove("selected");
+    this.selectedAvatar = e.target;
+    this.selectedAvatar.classList.add("selected");
   };
 
   render() {
@@ -74,9 +70,59 @@ class UserAdd extends Component {
           <label>Password</label>
           <input onChange={this.passwordChanged} placeholder="Password" />
         </Form.Field>
+
         <Form.Field>
           <label>Avatar</label>
-          <input onChange={this.avatarChanged} placeholder="Avatar URL" />
+          <div className="user-add-avatars-container">
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/45.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/10.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/10.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/11.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/11.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/4.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/4.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/80.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/80.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/100.png"
+            />
+            <img
+              onClick={this.handleAvatarChosen}
+              src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/100.png"
+            />
+          </div>
         </Form.Field>
         <Button onClick={this.addUser} color="blue">
           Add
