@@ -17,6 +17,11 @@ import { withRouter, Redirect } from "react-router";
 import { connect } from "react-redux";
 
 class QuestionDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state.answerSent = false;
+  }
+  state = {};
   render() {
     if (!this.props.currentUser._id) {
       this.props.AssignCameFromLink(this.props.location.pathname);
@@ -26,6 +31,11 @@ class QuestionDetails extends Component {
     const requiredQuestion = this.props.allQuestions?.filter(
       (q) => q._id == this.props.match.params.id
     )[0];
+
+    if (this.props.loading && this.state.answerSent) {
+      <Redirect to={`/questions/${requiredQuestion?._id}`} />;
+    }
+
     if (requiredQuestion?.answer) {
       return <Redirect to={`/questions/${this.props.match.params.id}`} />;
     }
@@ -65,9 +75,12 @@ class QuestionDetails extends Component {
                     answer: 1,
                   });
 
-                  this.props.history.push(
-                    `/questions/${requiredQuestion?._id}`
-                  );
+                  this.setState({
+                    answerSent: true,
+                  });
+                  // this.props.history.push(
+                  //   `/questions/${requiredQuestion?._id}`
+                  // );
                 }}
                 basic
                 color="olive"
@@ -82,9 +95,12 @@ class QuestionDetails extends Component {
                     answer: 2,
                   });
 
-                  this.props.history.push(
-                    `/questions/${requiredQuestion?._id}`
-                  );
+                  this.setState({
+                    answerSent: true,
+                  });
+                  // this.props.history.push(
+                  //   `/questions/${requiredQuestion?._id}`
+                  // );
                 }}
                 basic
                 color="teal"

@@ -24,6 +24,12 @@ class QuestionResult extends Component {
   _isMounted = false;
   componentDidMount() {
     this._isMounted = true;
+    this.getStatsFromDb();
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  getStatsFromDb() {
     fetch(
       `http://localhost:1001/api/questions/stats/${this.props.match.params.id}`
     ).then(async (res) => {
@@ -35,9 +41,6 @@ class QuestionResult extends Component {
         });
       }
     });
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   render() {
     if (!this.props.currentUser._id) {
