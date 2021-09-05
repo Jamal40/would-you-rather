@@ -67,7 +67,7 @@ class Login extends React.Component {
         <h2>Welcome to our website</h2>
         <Dropdown
           className="login-drop-down"
-          placeholder="Select Friend"
+          placeholder="Select User"
           fluid
           selection
           options={this.users}
