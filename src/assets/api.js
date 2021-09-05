@@ -11,11 +11,13 @@ export function getUsers() {
 }
 
 export function getUsers_V2() {
-  return fetch("http://localhost:1001/api/users");
+  return fetch("https://safe-chamber-24261.herokuapp.com/api/users");
 }
 
 export function getLeaderboards() {
-  return fetch("http://localhost:1001/api/users/leaderboards");
+  return fetch(
+    "https://safe-chamber-24261.herokuapp.com/api/users/leaderboards"
+  );
 }
 
 export function getUserById(id) {
@@ -27,7 +29,9 @@ export function getQuestions() {
 }
 
 export function getQuestions_V2(userId) {
-  return fetch(`http://localhost:1001/api/questions/?userId=${userId}`);
+  return fetch(
+    `https://safe-chamber-24261.herokuapp.com/api/questions/?userId=${userId}`
+  );
 }
 
 export function saveQuestion(question) {
@@ -35,7 +39,7 @@ export function saveQuestion(question) {
 }
 
 export function addQuestion(question) {
-  return fetch("http://localhost:1001/api/questions", {
+  return fetch("https://safe-chamber-24261.herokuapp.com/api/questions", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -50,7 +54,7 @@ export function saveQuestionAnswer(answer) {
 }
 
 export function addAnswer(answer) {
-  return fetch("http://localhost:1001/api/answers", {
+  return fetch("https://safe-chamber-24261.herokuapp.com/api/answers", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -62,7 +66,7 @@ export function addAnswer(answer) {
 
 export function logUserIn(userCredentials) {
   console.log(userCredentials);
-  return fetch("http://localhost:1001/api/user/login", {
+  return fetch("https://safe-chamber-24261.herokuapp.com/api/user/login", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -73,7 +77,7 @@ export function logUserIn(userCredentials) {
 }
 
 export function addUser(user) {
-  return fetch("http://localhost:1001/api/user/register", {
+  return fetch("https://safe-chamber-24261.herokuapp.com/api/user/register", {
     method: "POST",
     mode: "cors",
     headers: {

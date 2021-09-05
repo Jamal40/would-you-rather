@@ -31,7 +31,7 @@ class QuestionResult extends Component {
   }
   getStatsFromDb() {
     fetch(
-      `http://localhost:1001/api/questions/stats/${this.props.match.params.id}`
+      `https://safe-chamber-24261.herokuapp.com/api/questions/stats/${this.props.match.params.id}`
     ).then(async (res) => {
       const requiredQuestion = await res.json();
       if (this._isMounted) {
