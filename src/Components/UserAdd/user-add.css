@@ -11,6 +11,11 @@
   width: 90px;
 }
 
+.user-add-button-container {
+  padding: 1em;
+  text-align: center;
+}
+
 .user-add-avatars-container img:hover {
   cursor: pointer;
   border: 5px rgb(189, 137, 238) solid;

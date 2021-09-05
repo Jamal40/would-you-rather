@@ -68,7 +68,11 @@ class UserAdd extends Component {
         </Form.Field>
         <Form.Field>
           <label>Password</label>
-          <input onChange={this.passwordChanged} placeholder="Password" />
+          <input
+            type="password"
+            onChange={this.passwordChanged}
+            placeholder="Password"
+          />
         </Form.Field>
 
         <Form.Field>
@@ -124,9 +128,12 @@ class UserAdd extends Component {
             />
           </div>
         </Form.Field>
-        <Button onClick={this.addUser} color="blue">
-          Add
-        </Button>
+
+        <div className="user-add-button-container">
+          <Button onClick={this.addUser} color="blue">
+            Add
+          </Button>
+        </div>
       </Form>
     );
   }
