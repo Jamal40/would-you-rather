@@ -1,65 +1,46 @@
 import { types } from "../assets/types";
+
+//Actions
 import {
-  getQuestions,
-  getQuestions_V2,
-  addQuestion,
-  saveQuestionAnswer,
-  addAnswer,
-  getQuestionStats,
-} from "../assets/api";
+  getAllQuestions,
+  addQuestionAct,
+  addQuestionAnswerAct,
+} from "../Actions/questionActions";
+import { enableLoading, disableLoading } from "../Actions/loadingAction";
+
+import { getQuestions_V2, addQuestion, addAnswer } from "../assets/api";
 
 export const GetAllQuestions = (userId) => {
   return (dispatch) => {
-    dispatch({
-      type: types.ENABLE_LOADING,
-    });
+    dispatch(enableLoading());
     getQuestions_V2(userId).then(async (res) => {
       const questions = await res.json();
-      dispatch({
-        type: types.DISABLE_LOADING,
-      });
-      dispatch({
-        type: types.GET_ALL_QUESTIONS,
-        payload: questions,
-      });
+      dispatch(disableLoading());
+      dispatch(getAllQuestions(questions));
     });
   };
 };
 
 export const GetQuestionStats = (userId) => {
   return (dispatch) => {
-    dispatch({
-      type: types.ENABLE_LOADING,
-    });
+    dispatch(enableLoading());
     getQuestions_V2(userId).then(async (res) => {
       const questions = await res.json();
-      dispatch({
-        type: types.DISABLE_LOADING,
-      });
-      dispatch({
-        type: types.GET_ALL_QUESTIONS,
-        payload: questions,
-      });
+      dispatch(disableLoading());
+      dispatch(getAllQuestions(questions));
     });
   };
 };
 
 export const AddQuestion = (question) => {
   return (dispatch) => {
-    dispatch({
-      type: types.ENABLE_LOADING,
-    });
+    dispatch(enableLoading());
     addQuestion(question).then(async (res) => {
       const addedQuestion = await res.json();
       getQuestions_V2(addedQuestion.author).then(async (res) => {
         const questions = await res.json();
-        dispatch({
-          type: types.DISABLE_LOADING,
-        });
-        dispatch({
-          type: types.ADD_QUESTION,
-          payload: questions,
-        });
+        dispatch(disableLoading());
+        dispatch(addQuestionAct(questions));
       });
     });
   };
@@ -67,19 +48,12 @@ export const AddQuestion = (question) => {
 
 export const AddAnswer = (answer) => {
   return (dispatch) => {
-    dispatch({
-      type: types.ENABLE_LOADING,
-    });
+    dispatch(enableLoading());
     addAnswer(answer).then((res) => {
       getQuestions_V2(answer.userId).then(async (_res) => {
         const questions = await _res.json();
-        dispatch({
-          type: types.DISABLE_LOADING,
-        });
-        dispatch({
-          type: types.ADD_QUESTION_ANSWER,
-          payload: questions,
-        });
+        dispatch(disableLoading());
+        dispatch(addQuestionAnswerAct(questions));
       });
     });
   };
