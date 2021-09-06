@@ -54,7 +54,7 @@ class Home extends Component {
     this.updateFromReduxState();
     return this.props.allQuestions ? (
       <div className="home-container">
-        <Menu className="home-menu" pointing>
+        <Menu pointing>
           <Menu.Item
             className="home-item"
             name="answered"
@@ -68,7 +68,7 @@ class Home extends Component {
             onClick={this.handleItemClick}
           />
         </Menu>
-        <Segment className="home-segment">
+        <Segment>
           {activeItem === "unanswered" ? (
             <div>
               <Card.Group className="home-questions-container">
