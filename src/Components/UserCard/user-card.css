@@ -4,15 +4,17 @@
   height: 100px;
 }
 .user-card-container {
+  background-color: rgb(78, 78, 78);
+  color: white;
   margin: auto;
-  border: 1px solid rgb(228, 147, 47);
+  border: 5px solid rgb(255, 255, 255);
   border-radius: 10px;
   width: 350px;
   display: flex;
   align-items: center;
   position: relative;
   margin-bottom: 2em;
-  transform:  scale(0.95);
+  transform: scale(0.95);
 }
 .user-card-avatar {
   padding: 1em;
@@ -36,7 +38,7 @@
 }
 
 .user-card-score {
-  color: rgb(39, 202, 39);
+  color: rgb(225, 255, 56);
 }
 .user-card-rank {
   position: absolute;
@@ -48,4 +50,5 @@
   height: 20px;
   background-color: rgb(125, 243, 237);
   border-radius: 50%;
+  color: black;
 }

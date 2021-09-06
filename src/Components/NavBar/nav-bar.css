@@ -1,3 +1,14 @@
+.menu-container {
+  /* background-color: #8ec5fc !important;
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%) !important; */
+  background-color: #ff3cac !important;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  ) !important;
+}
 .log-item {
   margin-left: auto;
 }
@@ -5,13 +16,14 @@
 .welcome-msg {
   margin: 0;
   align-self: center;
-  color: rgb(98, 182, 13);
+  color: rgb(165, 250, 81);
 }
 .user-container {
   display: flex;
   margin-left: auto;
 }
 .nav-bar-item {
+  color: white !important;
   padding-inline: 0.75em !important;
 }
 
