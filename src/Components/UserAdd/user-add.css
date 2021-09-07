@@ -22,7 +22,8 @@
 }
 
 .user-add-avatars-container .selected {
-  filter: brightness(50%);
+  filter: contrast(50%);
+  border: 5px rgb(189, 137, 238) solid;
 }
 
 @media (max-width: 450px) {
