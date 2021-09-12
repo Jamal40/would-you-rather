@@ -2,6 +2,7 @@ import React from "react";
 import { Dropdown } from "semantic-ui-react";
 import { Button, Form } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../LoaidngSpinner/loading-spinner";
 import "./login.css";
 import "semantic-ui-css/semantic.min.css";
 
@@ -55,6 +56,10 @@ class Login extends React.Component {
   }
 
   render = () => {
+    if (this.props.loading) {
+      return <LoadingSpinner />;
+    }
+
     this.updateFromReduxState();
 
     if (this.props.currentUser._id) {
@@ -110,6 +115,7 @@ const mapStateToProps = (state) => {
     currentUser: state.authUserReducer,
     allQuestions: state.questionsReducer,
     allUsers: state.userReducer,
+    loading: state.loaderReducer,
   };
 };
 
